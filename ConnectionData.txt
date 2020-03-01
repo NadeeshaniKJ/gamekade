@@ -1,0 +1,4 @@
+com.mysql.cj.jdbc.Driver
+jdbc:mysql://localhost:3307 /gamekadedb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+root
+root
