@@ -7,6 +7,7 @@ package View.Customer;
 
 import controller.ComponentUtilities.AutoGenerateID;
 import controller.ComponentUtilities.GetBirthDay;
+import controller.ComponentUtilities.TableController;
 import controller.ComponentUtilities.ValidateValues;
 import controller.dataUtilities.CustomerUtilities;
 import java.awt.Color;
@@ -16,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.CustomerModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -26,14 +28,53 @@ public class SerchCustomer extends javax.swing.JFrame {
     /**
      * Creates new form SerchCustomer
      */
-    
+    // Non compulsory fields initialize true
     boolean nameCheck = false;
     boolean NICCheck = true;
     boolean contactCheck = true;
     boolean emailCheck = true;
-    
+
     public SerchCustomer() {
         initComponents();
+
+        new Thread() {
+            public void run() {
+
+                try {
+                    TableController.addDataToTable(jTbl_SearchCustomers, "Select * FROM CUSTOMER");
+                } catch (Exception e) {
+                }
+            }
+        }.start();
+        jTbl_SearchCustomers.setAutoCreateRowSorter(true);
+        try {
+            ArrayList<CustomerModel> arCustomer = CustomerUtilities.getAllCustomers();
+            for (CustomerModel c : arCustomer) {
+                cmb_cusName.addItem(c.getCustomer_name());
+                cmb_cusNIC.addItem(c.getCustomer_nic());
+                cmb_cusContact.addItem(c.getCustomer_contact());
+                cmb_email.addItem(c.getCustomer_email());
+                cmb_cusAddress.addItem(c.getCustomer_address());
+                cmb_cusPostalCode.addItem(c.getCustomer_postalcode());
+                cmb_cusProvince.addItem(c.getCustomer_province());
+                cmb_cusCity.addItem(c.getCustomer_city());
+            }
+
+            AutoCompleteDecorator.decorate(cmb_cusName);
+            AutoCompleteDecorator.decorate(cmb_cusNIC);
+            AutoCompleteDecorator.decorate(cmb_cusContact);
+            AutoCompleteDecorator.decorate(cmb_email);
+            AutoCompleteDecorator.decorate(cmb_cusAddress);
+            AutoCompleteDecorator.decorate(cmb_cusPostalCode);
+            AutoCompleteDecorator.decorate(cmb_cusProvince);
+            AutoCompleteDecorator.decorate(cmb_cusCity);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -46,7 +87,7 @@ public class SerchCustomer extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLbl_searchCus = new javax.swing.JLabel();
+        jLbl_addNewCus = new javax.swing.JLabel();
         jLbl_cusTitle = new javax.swing.JLabel();
         jLbl_cusName = new javax.swing.JLabel();
         jLbl_cusNIC = new javax.swing.JLabel();
@@ -57,25 +98,28 @@ public class SerchCustomer extends javax.swing.JFrame {
         jLbl_cusProvince = new javax.swing.JLabel();
         jLbl_cusPostalCode = new javax.swing.JLabel();
         cmb_cusTitle = new javax.swing.JComboBox<>();
-        txt_cusName = new javax.swing.JTextField();
-        txt_cusNIC = new javax.swing.JTextField();
-        txt_cusContactNumber = new javax.swing.JTextField();
-        txt_cusEmailAddress = new javax.swing.JTextField();
-        txt_cusAddress = new javax.swing.JTextField();
-        txt_cusCity = new javax.swing.JTextField();
-        txt_cusProvince = new javax.swing.JTextField();
-        txt_cusPostalCode = new javax.swing.JTextField();
         btn_searchCustomer = new javax.swing.JButton();
         btn_cancle = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
+        cmb_cusName = new javax.swing.JComboBox<>();
+        cmb_cusNIC = new javax.swing.JComboBox<>();
+        cmb_cusContact = new javax.swing.JComboBox<>();
+        cmb_email = new javax.swing.JComboBox<>();
+        cmb_cusAddress = new javax.swing.JComboBox<>();
+        cmb_cusPostalCode = new javax.swing.JComboBox<>();
+        cmb_cusProvince = new javax.swing.JComboBox<>();
+        cmb_cusCity = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTbl_SearchCustomers = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1200, 460));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(660, 460));
 
-        jLbl_searchCus.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jLbl_searchCus.setForeground(new java.awt.Color(51, 102, 255));
-        jLbl_searchCus.setText("SEARCH CUSTOMER");
+        jLbl_addNewCus.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLbl_addNewCus.setForeground(new java.awt.Color(51, 102, 255));
+        jLbl_addNewCus.setText("SEARCH CUSTOMER");
 
         jLbl_cusTitle.setText("TITLE :");
 
@@ -97,41 +141,7 @@ public class SerchCustomer extends javax.swing.JFrame {
 
         cmb_cusTitle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mr.", "Mrs.", "Rev.", "MS" }));
 
-        txt_cusName.setToolTipText("test");
-        txt_cusName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_cusNameFocusLost(evt);
-            }
-        });
-
-        txt_cusNIC.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_cusNICFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_cusNICFocusLost(evt);
-            }
-        });
-
-        txt_cusContactNumber.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_cusContactNumberFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_cusContactNumberFocusLost(evt);
-            }
-        });
-
-        txt_cusEmailAddress.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_cusEmailAddressFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txt_cusEmailAddressfocusLost(evt);
-            }
-        });
-
-        btn_searchCustomer.setText("SEARCH CUSTOMER");
+        btn_searchCustomer.setText("SEARCH");
         btn_searchCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchCustomerActionPerformed(evt);
@@ -142,203 +152,258 @@ public class SerchCustomer extends javax.swing.JFrame {
 
         btn_logout.setText("LOGOUT");
 
+        cmb_cusName.setEditable(true);
+        cmb_cusName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Name" }));
+        cmb_cusName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cmb_cusNameFocusGained(evt);
+            }
+        });
+        cmb_cusName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_cusNameActionPerformed(evt);
+            }
+        });
+
+        cmb_cusNIC.setEditable(true);
+        cmb_cusNIC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NIC Number" }));
+
+        cmb_cusContact.setEditable(true);
+        cmb_cusContact.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contact Number" }));
+
+        cmb_email.setEditable(true);
+        cmb_email.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Email" }));
+
+        cmb_cusAddress.setEditable(true);
+        cmb_cusAddress.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "adress" }));
+        cmb_cusAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_cusAddressActionPerformed(evt);
+            }
+        });
+
+        cmb_cusPostalCode.setEditable(true);
+        cmb_cusPostalCode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Postal Code" }));
+
+        cmb_cusProvince.setEditable(true);
+        cmb_cusProvince.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Province" }));
+
+        cmb_cusCity.setEditable(true);
+        cmb_cusCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "City" }));
+
+        jTbl_SearchCustomers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Title", "Name", "NIC", "Birth Day", "EMail address", "Contact No.", "Address", "City", "Province", "Postal Code"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true, true, true, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTbl_SearchCustomers);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLbl_addNewCus, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 807, Short.MAX_VALUE)
+                        .addComponent(btn_logout)
+                        .addGap(22, 22, 22))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLbl_cusNIC)
-                            .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLbl_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_cusEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txt_cusName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txt_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(5, 5, 5)
+                                    .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLbl_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(5, 5, 5)
+                                    .addComponent(cmb_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(jLbl_cusContactNum, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(txt_cusContactNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLbl_searchCus, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(295, 295, 295)
-                        .addComponent(btn_logout))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLbl_cusCity, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                            .addComponent(jLbl_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLbl_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(46, 46, 46)
+                                    .addComponent(cmb_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(txt_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLbl_cusNIC)
+                                    .addGap(36, 36, 36)
+                                    .addComponent(cmb_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(21, 21, 21)
+                                    .addComponent(jLbl_cusContactNum, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(12, 12, 12)
+                                    .addComponent(cmb_cusContact, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLbl_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(46, 46, 46)
+                                    .addComponent(cmb_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jLbl_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(5, 5, 5)
+                                    .addComponent(cmb_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(5, 5, 5)
+                                    .addComponent(cmb_email, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txt_cusProvince, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
-                                .addComponent(txt_cusAddress))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btn_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                                    .addComponent(cmb_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(btn_searchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_logout)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLbl_searchCus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLbl_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_addNewCus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLbl_cusNIC))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLbl_cusContactNum, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txt_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txt_cusContactNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cusEmailAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLbl_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(4, 4, 4)
+                        .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmb_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLbl_cusName)
+                            .addComponent(jLbl_cusAddress))))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(cmb_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jLbl_cusContactNum))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(cmb_cusContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(jLbl_cusCity))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLbl_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLbl_cusProvince)
+                            .addComponent(cmb_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLbl_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(4, 4, 4)
+                        .addComponent(cmb_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(cmb_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmb_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_searchCustomer)
-                    .addComponent(btn_cancle))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(btn_searchCustomer))
+                    .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_cusNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusNameFocusLost
-        if (!txt_cusName.getText().isEmpty()) {
-            nameCheck = true;
-        }
-    }//GEN-LAST:event_txt_cusNameFocusLost
-
-    private void txt_cusNICFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusNICFocusGained
-        txt_cusNIC.setForeground(Color.BLACK);
-    }//GEN-LAST:event_txt_cusNICFocusGained
-
-    private void txt_cusNICFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusNICFocusLost
-        NICCheck = ValidateValues.NICValidation(txt_cusNIC);
-    }//GEN-LAST:event_txt_cusNICFocusLost
-
-    private void txt_cusContactNumberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusContactNumberFocusGained
-        txt_cusContactNumber.setForeground(Color.BLACK);
-    }//GEN-LAST:event_txt_cusContactNumberFocusGained
-
-    private void txt_cusContactNumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusContactNumberFocusLost
-        contactCheck = ValidateValues.contactNumberValidation(txt_cusContactNumber);
-    }//GEN-LAST:event_txt_cusContactNumberFocusLost
-
-    private void txt_cusEmailAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusEmailAddressFocusGained
-        txt_cusEmailAddress.setForeground(Color.BLACK);
-    }//GEN-LAST:event_txt_cusEmailAddressFocusGained
-
-    private void txt_cusEmailAddressfocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusEmailAddressfocusLost
-        emailCheck = ValidateValues.emailValidation(txt_cusEmailAddress);
-    }//GEN-LAST:event_txt_cusEmailAddressfocusLost
-
     private void btn_searchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchCustomerActionPerformed
 
-        try {
-            if (!nameCheck) {
-                JOptionPane.showMessageDialog(null, "Please enter Name");
-            } else if (!NICCheck) {
-                JOptionPane.showMessageDialog(null, "Please enter valid NIC");
-            } else if (!contactCheck) {
-                JOptionPane.showMessageDialog(null, "Please enter valid contact number");
-            } else if (!emailCheck) {
-                JOptionPane.showMessageDialog(null, "Please enter email");
-            } else {
-                String id = AutoGenerateID.getNextID("CUSTOMER", "customer_id", "C", 5);
-                String birthDay = "0000-00-00";
-                if (!txt_cusNIC.getText().isEmpty()) {
-                    birthDay = GetBirthDay.getBirthDay(txt_cusNIC.getText());
-                }
+//        try {
+//            if (!nameCheck) {
+//                JOptionPane.showMessageDialog(null, "Please enter Name");
+//            } else if (!NICCheck) {
+//                JOptionPane.showMessageDialog(null, "Please enter valid NIC");
+//            } else if (!contactCheck) {
+//                JOptionPane.showMessageDialog(null, "Please enter valid contact number");
+//            } else if (!emailCheck) {
+//                JOptionPane.showMessageDialog(null, "Please enter email");
+//            } else {
+//                String id = AutoGenerateID.getNextID("CUSTOMER", "customer_id", "C", 5);
+//                String birthDay = "0000-00-00";
+//                if (!txt_cusNIC.getText().isEmpty()) {
+//                    birthDay = GetBirthDay.getBirthDay(txt_cusNIC.getText());
+//                }
+//
+//                CustomerModel NewCustomer = new CustomerModel(
+//                    id,
+//                    cmb_cusTitle.getSelectedItem().toString(),
+//                    txt_cusName.getText(),
+//                    txt_cusNIC.getText(),
+//                    birthDay,
+//                    txt_cusContactNumber.getText(),
+//                    txt_cusEmailAddress.getText(),
+//                    txt_cusAddress.getText(),
+//                    txt_cusCity.getText(),
+//                    txt_cusProvince.getText(),
+//                    txt_cusPostalCode.getText()
+//                );
+//                CustomerUtilities.addCustomer(NewCustomer);
+        new Thread() {
+            public void run() {
 
-                CustomerModel NewCustomer = new CustomerModel(
-                    id,
-                    cmb_cusTitle.getSelectedItem().toString(),
-                    txt_cusName.getText(),
-                    txt_cusNIC.getText(),
-                    birthDay,
-                    txt_cusContactNumber.getText(),
-                    txt_cusEmailAddress.getText(),
-                    txt_cusAddress.getText(),
-                    txt_cusCity.getText(),
-                    txt_cusProvince.getText(),
-                    txt_cusPostalCode.getText()
-                );
-                CustomerUtilities.addCustomer(NewCustomer);
+                try {
+                    TableController.addDataToTable(jTbl_SearchCustomers, "Select * FROM CUSTOMER");
+                } catch (Exception e) {
+                }
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }.start();
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (Exception ex) {
+//            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }//GEN-LAST:event_btn_searchCustomerActionPerformed
+
+    private void cmb_cusNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cmb_cusNameFocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cmb_cusNameFocusGained
+
+    private void cmb_cusNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_cusNameActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cmb_cusNameActionPerformed
+
+    private void cmb_cusAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_cusAddressActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_cusAddressActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,17 +436,7 @@ public class SerchCustomer extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SerchCustomer().setVisible(true);
-               
-//                try {
-//                    ArrayList<CustomerModel> arCustomer =CustomerUtilities.showAllCustomers();
-//                    System.out.println(arCustomer.get(1).getCustomer_name());  
-//                } catch (ClassNotFoundException ex) {
-//                    Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (IOException ex) {
-//                    Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
-//                } catch (Exception ex) {
-//                    Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+
             }
         });
     }
@@ -390,7 +445,16 @@ public class SerchCustomer extends javax.swing.JFrame {
     private javax.swing.JButton btn_cancle;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_searchCustomer;
+    private javax.swing.JComboBox<String> cmb_cusAddress;
+    private javax.swing.JComboBox<String> cmb_cusCity;
+    private javax.swing.JComboBox<String> cmb_cusContact;
+    private javax.swing.JComboBox<String> cmb_cusNIC;
+    private javax.swing.JComboBox<String> cmb_cusName;
+    private javax.swing.JComboBox<String> cmb_cusPostalCode;
+    private javax.swing.JComboBox<String> cmb_cusProvince;
     private javax.swing.JComboBox<String> cmb_cusTitle;
+    private javax.swing.JComboBox<String> cmb_email;
+    private javax.swing.JLabel jLbl_addNewCus;
     private javax.swing.JLabel jLbl_cusAddress;
     private javax.swing.JLabel jLbl_cusCity;
     private javax.swing.JLabel jLbl_cusContactNum;
@@ -400,15 +464,8 @@ public class SerchCustomer extends javax.swing.JFrame {
     private javax.swing.JLabel jLbl_cusPostalCode;
     private javax.swing.JLabel jLbl_cusProvince;
     private javax.swing.JLabel jLbl_cusTitle;
-    private javax.swing.JLabel jLbl_searchCus;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txt_cusAddress;
-    private javax.swing.JTextField txt_cusCity;
-    private javax.swing.JTextField txt_cusContactNumber;
-    private javax.swing.JTextField txt_cusEmailAddress;
-    private javax.swing.JTextField txt_cusNIC;
-    private javax.swing.JTextField txt_cusName;
-    private javax.swing.JTextField txt_cusPostalCode;
-    private javax.swing.JTextField txt_cusProvince;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTbl_SearchCustomers;
     // End of variables declaration//GEN-END:variables
 }

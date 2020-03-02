@@ -14,6 +14,13 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.swinglabs/swingx-core -->
+<dependency>
+    <groupId>org.swinglabs</groupId>
+    <artifactId>swingx-core</artifactId>
+    <version>1.6.2-2</version>
+</dependency>
+
 <!--        <dependency>
             <groupId>unknown.binary</groupId>
             <artifactId>AbsoluteLayout</artifactId>

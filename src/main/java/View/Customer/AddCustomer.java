@@ -25,6 +25,8 @@ public class AddCustomer extends javax.swing.JFrame {
     /**
      * Creates new form AddCustomer
      */
+    
+    // Non compulsory fields initialize true
     boolean nameCheck = false;
     boolean NICCheck = true;
     boolean contactCheck = true;

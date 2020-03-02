@@ -741,72 +741,72 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jb_Sales" max="32767" attributes="0"/>
-                      <Component id="jb_Help" pref="100" max="32767" attributes="0"/>
-                      <Component id="jb_Users" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jb_Suppliers" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jb_Products" alignment="0" max="32767" attributes="0"/>
-                      <Component id="jb_Customers" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_Sales" max="32767" attributes="0"/>
+                      <Component id="btn_Help" pref="100" max="32767" attributes="0"/>
+                      <Component id="btn_Users" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_Suppliers" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_Products" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btn_Customers" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jb_Sales" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="btn_Sales" min="-2" pref="54" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jb_Customers" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="btn_Customers" min="-2" pref="54" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jb_Products" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="btn_Products" min="-2" pref="54" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jb_Suppliers" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="btn_Suppliers" min="-2" pref="54" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jb_Users" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="btn_Users" min="-2" pref="54" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jb_Help" min="-2" pref="54" max="-2" attributes="0"/>
+                          <Component id="btn_Help" min="-2" pref="54" max="-2" attributes="0"/>
                           <EmptySpace pref="114" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jb_Sales">
+                <Component class="javax.swing.JButton" name="btn_Sales">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Sales"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_SalesActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_SalesActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jb_Customers">
+                <Component class="javax.swing.JButton" name="btn_Customers">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Customers"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_CustomersActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_CustomersActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jb_Products">
+                <Component class="javax.swing.JButton" name="btn_Products">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Products"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_ProductsActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_ProductsActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jb_Suppliers">
+                <Component class="javax.swing.JButton" name="btn_Suppliers">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Suppliers"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_SuppliersActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_SuppliersActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jb_Users">
+                <Component class="javax.swing.JButton" name="btn_Users">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Users"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jb_Help">
+                <Component class="javax.swing.JButton" name="btn_Help">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Help"/>
                   </Properties>

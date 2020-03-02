@@ -92,12 +92,12 @@ public class ShopHome extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jSplitPane1 = new javax.swing.JSplitPane();
         jLayeredPane2 = new javax.swing.JLayeredPane();
-        jb_Sales = new javax.swing.JButton();
-        jb_Customers = new javax.swing.JButton();
-        jb_Products = new javax.swing.JButton();
-        jb_Suppliers = new javax.swing.JButton();
-        jb_Users = new javax.swing.JButton();
-        jb_Help = new javax.swing.JButton();
+        btn_Sales = new javax.swing.JButton();
+        btn_Customers = new javax.swing.JButton();
+        btn_Products = new javax.swing.JButton();
+        btn_Suppliers = new javax.swing.JButton();
+        btn_Users = new javax.swing.JButton();
+        btn_Help = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -449,70 +449,70 @@ public class ShopHome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jb_Sales.setText("Sales");
-        jb_Sales.addActionListener(new java.awt.event.ActionListener() {
+        btn_Sales.setText("Sales");
+        btn_Sales.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_SalesActionPerformed(evt);
+                btn_SalesActionPerformed(evt);
             }
         });
 
-        jb_Customers.setText("Customers");
-        jb_Customers.addActionListener(new java.awt.event.ActionListener() {
+        btn_Customers.setText("Customers");
+        btn_Customers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_CustomersActionPerformed(evt);
+                btn_CustomersActionPerformed(evt);
             }
         });
 
-        jb_Products.setText("Products");
-        jb_Products.addActionListener(new java.awt.event.ActionListener() {
+        btn_Products.setText("Products");
+        btn_Products.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_ProductsActionPerformed(evt);
+                btn_ProductsActionPerformed(evt);
             }
         });
 
-        jb_Suppliers.setText("Suppliers");
-        jb_Suppliers.addActionListener(new java.awt.event.ActionListener() {
+        btn_Suppliers.setText("Suppliers");
+        btn_Suppliers.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jb_SuppliersActionPerformed(evt);
+                btn_SuppliersActionPerformed(evt);
             }
         });
 
-        jb_Users.setText("Users");
+        btn_Users.setText("Users");
 
-        jb_Help.setText("Help");
+        btn_Help.setText("Help");
 
-        jLayeredPane2.setLayer(jb_Sales, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jb_Customers, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jb_Products, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jb_Suppliers, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jb_Users, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane2.setLayer(jb_Help, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(btn_Sales, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(btn_Customers, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(btn_Products, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(btn_Suppliers, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(btn_Users, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane2.setLayer(btn_Help, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane2Layout = new javax.swing.GroupLayout(jLayeredPane2);
         jLayeredPane2.setLayout(jLayeredPane2Layout);
         jLayeredPane2Layout.setHorizontalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jb_Sales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jb_Help, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-            .addComponent(jb_Users, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jb_Suppliers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jb_Products, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jb_Customers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_Sales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_Help, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(btn_Users, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_Suppliers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_Products, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_Customers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jLayeredPane2Layout.setVerticalGroup(
             jLayeredPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane2Layout.createSequentialGroup()
-                .addComponent(jb_Sales, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Sales, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jb_Customers, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Customers, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jb_Products, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Products, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jb_Suppliers, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Suppliers, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jb_Users, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Users, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jb_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Help, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(114, Short.MAX_VALUE))
         );
 
@@ -564,19 +564,19 @@ public class ShopHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jb_SalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_SalesActionPerformed
+    private void btn_SalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SalesActionPerformed
         // TODO add your handling code here:
         jSplitPane1.setRightComponent(jLP_CustomerOrders);
         jTbl_AllSales.setAutoCreateRowSorter(true);
         
         
-    }//GEN-LAST:event_jb_SalesActionPerformed
+    }//GEN-LAST:event_btn_SalesActionPerformed
 
-    private void jb_CustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_CustomersActionPerformed
+    private void btn_CustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CustomersActionPerformed
         // TODO add your handling code here:
         jSplitPane1.setRightComponent(jLP_Customers);
         jTbl_AllCustomers.setAutoCreateRowSorter(true);
-    }//GEN-LAST:event_jb_CustomersActionPerformed
+    }//GEN-LAST:event_btn_CustomersActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
@@ -590,18 +590,18 @@ public class ShopHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton19ActionPerformed
 
-    private void jb_ProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_ProductsActionPerformed
+    private void btn_ProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ProductsActionPerformed
         // TODO add your handling code here:
         jSplitPane1.setRightComponent(jLP_Items);
         jTbl_AllIems.setAutoCreateRowSorter(true);
         
-    }//GEN-LAST:event_jb_ProductsActionPerformed
+    }//GEN-LAST:event_btn_ProductsActionPerformed
 
-    private void jb_SuppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_SuppliersActionPerformed
+    private void btn_SuppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SuppliersActionPerformed
         // TODO add your handling code here:
         jSplitPane1.setRightComponent(jLP_Suppliers);
         jTbl_AllSuppliers.setAutoCreateRowSorter(true);
-    }//GEN-LAST:event_jb_SuppliersActionPerformed
+    }//GEN-LAST:event_btn_SuppliersActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -643,6 +643,12 @@ public class ShopHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_Customers;
+    private javax.swing.JButton btn_Help;
+    private javax.swing.JButton btn_Products;
+    private javax.swing.JButton btn_Sales;
+    private javax.swing.JButton btn_Suppliers;
+    private javax.swing.JButton btn_Users;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -694,11 +700,5 @@ public class ShopHome extends javax.swing.JFrame {
     private javax.swing.JTable jTbl_AllIems;
     private javax.swing.JTable jTbl_AllSales;
     private javax.swing.JTable jTbl_AllSuppliers;
-    private javax.swing.JButton jb_Customers;
-    private javax.swing.JButton jb_Help;
-    private javax.swing.JButton jb_Products;
-    private javax.swing.JButton jb_Sales;
-    private javax.swing.JButton jb_Suppliers;
-    private javax.swing.JButton jb_Users;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,10 +12,21 @@ package ANote;
 public class Note {
     
     /*
+    customer home>>
+    show>>> combo boxes to select what columns to display
+    order by>> edit order by function for columns with numbers,there is an error in order
     
-    **** check same Nic numbers
-    **** load data to combo box when search in add customerOrders >>https://www.youtube.com/watch?v=coDKSf45WMo  // https://www.algosome.com/articles/java-jcombobox-autocomplete.html
+    search customer>>>
+    allow search from each field
+    upon click on cusomer name open window to delete or update customer>> you may make fields editable upon click on update and give a "save changes" button
+    load data to combo box and  editable combo bx
+    
+    **** check same Nic numbers when add customers
+    **** load data to combo box( when search in add customerOrders )>>https://www.youtube.com/watch?v=coDKSf45WMo  // https://www.algosome.com/articles/java-jcombobox-autocomplete.html
     **** when clicked on customer name go to display all his purchases in customerORders
+    
+    
+    addcustomer>>>
     remove  default text
     focus gained>> do nothing // font black
     focus lost>> empty>> >> check false for not null fields
@@ -56,5 +67,23 @@ public class Note {
     
     QQQ..............??????????????????.
     why new thread to load data to table
+    
+    
+    
+    
+    **************************************************************************************************************************************
+     try {
+                    ArrayList<CustomerModel> arCustomer =CustomerUtilities.getAllCustomers();
+                    for (CustomerModel c:arCustomer){
+                        System.out.println(arCustomer.get(1).getCustomer_name());
+                    }
+                      
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                }
     */
 }
