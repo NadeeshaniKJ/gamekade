@@ -12,6 +12,8 @@ package ANote;
 public class Note {
     
     /*
+    GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER
+    
     customer home>>
     show>>> combo boxes to select what columns to display
     order by>> edit order by function for columns with numbers,there is an error in order
