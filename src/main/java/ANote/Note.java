@@ -12,7 +12,15 @@ package ANote;
 public class Note {
     
     /*
-    GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER
+    
+    1 comiit changes as key combination added
+    2 check box for table column selection added
+    3 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added
+    4 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added with update and delete options
+    5 home button
+    6 cancel button to clean selections added
+    7 logout added
+    
     
     customer home>>
     show>>> combo boxes to select what columns to display
