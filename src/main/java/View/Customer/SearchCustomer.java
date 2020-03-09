@@ -14,6 +14,8 @@ import controller.ComponentUtilities.TableController;
 import controller.ComponentUtilities.ValidateValues;
 import controller.dataUtilities.CustomerUtilities;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -22,7 +24,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import model.CustomerModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -35,6 +42,31 @@ public class SearchCustomer extends javax.swing.JFrame {
     /**
      * Creates new form SearchCustomer
      */
+    ArrayList<CustomerModel> arCustomer;
+    private JTable customerTable;
+    private TableColumnModel tableColumnModel;
+    private String[] columnNamesArr;
+    private ArrayList<String> columnNamesList;
+    private ArrayList<String> cellsList;
+    private Object[][] data;
+    private DefaultTableModel defaultTableModel;
+    private Object[][] cells2;
+
+    private String[] cellsArr;
+    private String[] namesArr;
+    private String[] NICArr;
+    private String[] TitleArr;
+    private String[] AddressArr;
+    private Object[][] cells = {
+        {"Amal", "Walisara", new Integer(38), "Male"},
+        {"Kamal", "Miliya", new Integer(55), "Male"},
+        {"Wasana", "Panadura", new Integer(66), "Female"},
+        {"Gihan", "Wel", new Integer(18), "Male"},
+        {"Nimal", "Kalutara", new Integer(25), "Male"},};
+    private String[] columnNames = {
+        "Name", "Address", "Age", "Sex"
+    };
+
     // Non compulsory fields initialize true
     boolean nameCheck = false;
     boolean NICCheck = true;
@@ -50,10 +82,285 @@ public class SearchCustomer extends javax.swing.JFrame {
 //    private int currentIndex = 0;
     public SearchCustomer() {
         initComponents();
-        loadTable();
+//        loadTable();
         loadCombo();
         setCombeKey();
+        createTable();
+//        TableController.addDataToColumn();
 
+    }
+
+    private void createTable() {
+
+        new Thread() {
+            public void run() {
+
+                columnNamesList = new ArrayList<String>();
+                columnNamesList.add("ID");
+                columnNamesList.add("TITLE");
+                columnNamesList.add("NAME");
+                columnNamesList.add("NIC");
+                columnNamesList.add("BIRTHDAY");
+                columnNamesList.add("EMAIL");
+                columnNamesList.add("CONTACT");
+                columnNamesList.add("ADDRESS");
+                columnNamesList.add("CITY");
+                columnNamesList.add("PROVINCE");
+                columnNamesList.add("POSTAL CODE");
+                try {
+                    arCustomer = CustomerUtilities.getAllCustomers();
+//                    cellsArr = new String[arCustomer.size()];
+                    namesArr = new String[arCustomer.size()];
+                    cells2 = new String[arCustomer.size()][columnNamesList.size()];
+                    for (int i = 0; i < arCustomer.size(); i++) {
+                        cells2[i][0] = arCustomer.get(i).getCustomer_id();
+                        cells2[i][1] = arCustomer.get(i).getCustomer_title();
+//                        TitleArr[i] = arCustomer.get(i).getCustomer_title();
+                        cells2[i][2] = arCustomer.get(i).getCustomer_name();
+//                        namesArr[i] = arCustomer.get(i).getCustomer_name();
+                        cells2[i][3] = arCustomer.get(i).getCustomer_nic();
+//                        NICArr[i] = arCustomer.get(i).getCustomer_nic();
+                        cells2[i][4] = arCustomer.get(i).getCustomer_bday();
+                        cells2[i][5] = arCustomer.get(i).getCustomer_email();
+                        cells2[i][6] = arCustomer.get(i).getCustomer_contact();
+                        cells2[i][7] = arCustomer.get(i).getCustomer_address();
+                        cells2[i][8] = arCustomer.get(i).getCustomer_city();
+                        cells2[i][9] = arCustomer.get(i).getCustomer_province();
+                        cells2[i][10] = arCustomer.get(i).getCustomer_postalcode();
+                    }
+
+//                    for (int i = 0; i < arCustomer.size(); i++) {
+//                        for (int j = 0; j < columnNamesList.size(); j++) {
+//                            cells2[i][j] = arCustomer.get(i).getCustomer_id();
+//                            System.out.println(cells2[i][j]);
+//                        }
+//                        System.out.println("  ");
+//                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                data = new String[1][columnNamesList.size()];
+                columnNamesArr = new String[columnNamesList.size()];
+                for (int i = 0; i < columnNamesList.size(); i++) {
+                    columnNamesArr[i] = columnNamesList.get(i);
+                    data[0][i] = "";
+                }
+
+                defaultTableModel = new DefaultTableModel(cells2, columnNamesArr);
+//                defaultTableModel = new DefaultTableModel(arCustomer.size(),columnNamesList.size());
+//                defaultTableModel.addColumn("NAME", namesArr);
+//                defaultTableModel.addColumn("NIC", NICArr);
+//                defaultTableModel.addColumn("TITLE", TitleArr);
+//                defaultTableModel.addColumn("TITLE", TitleArr);
+//                defaultTableModel.addColumn("TITLE", TitleArr);
+
+                customerTable = new JTable(defaultTableModel);
+
+                tableColumnModel = customerTable.getColumnModel();
+
+                for (int i = 0; i < columnNamesList.size(); i++) {
+                    tableColumnModel.getColumn(i).setPreferredWidth(columnNamesList.get(i).length());
+                }
+                customerTable.setPreferredScrollableViewportSize(customerTable.getPreferredSize());
+                jScrollPane2.getViewport().add(customerTable);
+
+                chk_ID.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_ID.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("ID");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("ID");
+                            toAdd.setIdentifier("ID");
+                            toAdd.setPreferredWidth("ID".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Title.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Title.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("TITLE");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("TITLE");
+                            toAdd.setIdentifier("TITLE");
+                            toAdd.setPreferredWidth("TITLE".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Name.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Name.isSelected()) {
+
+                            TableColumn toRemove = customerTable.getColumn("NAME");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+
+//                            customerTable.setModel(defaultTableModel);
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("NAME");
+                            toAdd.setIdentifier("NAME");
+                            toAdd.setPreferredWidth("NAME".length());
+//                            customerTable.addColumn(new TableColumn(2, 2, cellRenderer, cellEditor));
+                            customerTable.validate();
+                            
+                   
+//                            customerTable.addColumn(toAdd);
+//                            customerTable.validate();
+//                            defaultTableModel.addColumn("NAME", namesArr);
+//                            customerTable = new JTable(defaultTableModel);
+//                            customerTable.setModel(defaultTableModel);
+
+                        }
+                    }
+                });
+
+                chk_NIC.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_NIC.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("NIC");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("NIC");
+                            toAdd.setIdentifier("NIC");
+                            toAdd.setPreferredWidth("NIC".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Birthday.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Birthday.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("BIRTHDAY");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("BIRTHDAY");
+                            toAdd.setIdentifier("BIRTHDAY");
+                            toAdd.setPreferredWidth("BIRTHDAY".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Contact.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Contact.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("CONTACT");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("CONTACT");
+                            toAdd.setIdentifier("CONTACT");
+                            toAdd.setPreferredWidth("CONTACT".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Email.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Email.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("EMAIL");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("EMAIL");
+                            toAdd.setIdentifier("EMAIL");
+                            toAdd.setPreferredWidth("EMAIL".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Address.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Address.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("ADDRESS");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("ADDRESS");
+                            toAdd.setIdentifier("ADDRESS");
+                            toAdd.setPreferredWidth("ADDRESS".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_City.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_City.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("CITY");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("CITY");
+                            toAdd.setIdentifier("CITY");
+                            toAdd.setPreferredWidth("CITY".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Province.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Province.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("PROVINCE");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("PROVINCE");
+                            toAdd.setIdentifier("PROVINCE");
+                            toAdd.setPreferredWidth("PROVINCE".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Postal.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Postal.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("POSTAL CODE");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("POSTAL CODE");
+                            toAdd.setIdentifier("POSTAL CODE");
+                            toAdd.setPreferredWidth("POSTAL CODE".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+
+            }
+        }.start();
+        jTbl_SearchCustomers.setAutoCreateRowSorter(true);
     }
 
     private void loadTable() {
@@ -61,12 +368,12 @@ public class SearchCustomer extends javax.swing.JFrame {
             public void run() {
 
                 try {
-                    TableController.addDataToTable(jTbl_SearchCustomers, "Select * FROM CUSTOMER");
+                    TableController.addDataToTable(customerTable, "Select * FROM CUSTOMER");
                 } catch (Exception e) {
                 }
             }
         }.start();
-        jTbl_SearchCustomers.setAutoCreateRowSorter(true);
+        customerTable.setAutoCreateRowSorter(true);
     }
 
     private void loadCombo() {
@@ -180,6 +487,7 @@ public class SearchCustomer extends javax.swing.JFrame {
                     = (JTextField) cmb_cusProvince.getEditor().getEditorComponent();
             txtcusCity
                     = (JTextField) cmb_cusCity.getEditor().getEditorComponent();
+
             cmb_cusID.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent evt) {
                     if (evt.getKeyCode() == KeyEvent.VK_F2) {
@@ -190,7 +498,7 @@ public class SearchCustomer extends javax.swing.JFrame {
             txtcusTitle.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent evt) {
                     if (evt.getKeyCode() == KeyEvent.VK_F1) {
-                        txtcusID.requestFocus();
+                        cmb_cusID.requestFocus();
                     }
                     if (evt.getKeyCode() == KeyEvent.VK_F2) {
                         txtcusName.requestFocus();
@@ -289,6 +597,8 @@ public class SearchCustomer extends javax.swing.JFrame {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTbl_SearchCustomers = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLbl_addNewCus = new javax.swing.JLabel();
         jLbl_cusID = new javax.swing.JLabel();
@@ -314,22 +624,41 @@ public class SearchCustomer extends javax.swing.JFrame {
         cmb_cusPostalCode = new javax.swing.JComboBox<>();
         cmb_cusProvince = new javax.swing.JComboBox<>();
         cmb_cusCity = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTbl_SearchCustomers = new javax.swing.JTable();
         btn_searchCustomer1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
+        chk_ID = new javax.swing.JCheckBox();
+        chk_Postal = new javax.swing.JCheckBox();
+        chk_NIC = new javax.swing.JCheckBox();
+        chk_Title = new javax.swing.JCheckBox();
+        chk_Address = new javax.swing.JCheckBox();
+        chk_Contact = new javax.swing.JCheckBox();
+        chk_Name = new javax.swing.JCheckBox();
+        chk_City = new javax.swing.JCheckBox();
+        chk_Province = new javax.swing.JCheckBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jLabel1 = new javax.swing.JLabel();
+        chk_Birthday = new javax.swing.JCheckBox();
+        chk_Email = new javax.swing.JCheckBox();
+
+        jTbl_SearchCustomers.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Title", "Name", "NIC", "Birth Day", "EMail address", "Contact No.", "Address", "City", "Province", "Postal Code"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, true, true, true, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTbl_SearchCustomers);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1200, 920));
-        setResizable(false);
 
         jLbl_addNewCus.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLbl_addNewCus.setForeground(new java.awt.Color(51, 102, 255));
@@ -421,24 +750,6 @@ public class SearchCustomer extends javax.swing.JFrame {
 
         cmb_cusCity.setEditable(true);
 
-        jTbl_SearchCustomers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Title", "Name", "NIC", "Birth Day", "EMail address", "Contact No.", "Address", "City", "Province", "Postal Code"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTbl_SearchCustomers);
-
         btn_searchCustomer1.setText("SEARCH ALL");
         btn_searchCustomer1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -446,59 +757,85 @@ public class SearchCustomer extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        chk_ID.setSelected(true);
+        chk_ID.setText("ID");
+        chk_ID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                chk_IDActionPerformed(evt);
             }
         });
 
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        chk_Postal.setSelected(true);
+        chk_Postal.setText("Postal Code");
+        chk_Postal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                chk_PostalActionPerformed(evt);
             }
         });
 
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+        chk_NIC.setSelected(true);
+        chk_NIC.setText("NIC");
+        chk_NIC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
+                chk_NICActionPerformed(evt);
             }
         });
 
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
+        chk_Title.setSelected(true);
+        chk_Title.setText("Title");
+        chk_Title.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
+                chk_TitleActionPerformed(evt);
             }
         });
 
-        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
+        chk_Address.setSelected(true);
+        chk_Address.setText("Address");
+        chk_Address.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox5ActionPerformed(evt);
+                chk_AddressActionPerformed(evt);
             }
         });
 
-        jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
+        chk_Contact.setSelected(true);
+        chk_Contact.setText("Contact Number");
+        chk_Contact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox6ActionPerformed(evt);
+                chk_ContactActionPerformed(evt);
             }
         });
 
-        jCheckBox7.addActionListener(new java.awt.event.ActionListener() {
+        chk_Name.setSelected(true);
+        chk_Name.setText("Name");
+        chk_Name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox7ActionPerformed(evt);
+                chk_NameActionPerformed(evt);
             }
         });
 
-        jCheckBox8.addActionListener(new java.awt.event.ActionListener() {
+        chk_City.setSelected(true);
+        chk_City.setText("City");
+        chk_City.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox8ActionPerformed(evt);
+                chk_CityActionPerformed(evt);
             }
         });
 
-        jCheckBox9.addActionListener(new java.awt.event.ActionListener() {
+        chk_Province.setSelected(true);
+        chk_Province.setText("Province");
+        chk_Province.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox9ActionPerformed(evt);
+                chk_ProvinceActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Select Column:");
+
+        chk_Birthday.setSelected(true);
+        chk_Birthday.setText("Birth Day");
+
+        chk_Email.setSelected(true);
+        chk_Email.setText("Email");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -507,12 +844,7 @@ public class SearchCustomer extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(20, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCheckBox7, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jCheckBox4, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addContainerGap(53, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLbl_cusNIC)
                             .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -529,23 +861,17 @@ public class SearchCustomer extends javax.swing.JFrame {
                                     .addComponent(cmb_cusContact, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(cmb_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(56, 56, 56)
                         .addComponent(jLbl_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmb_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jCheckBox3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(56, 56, 56)
                         .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCheckBox9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(51, 51, 51)
                         .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -553,22 +879,15 @@ public class SearchCustomer extends javax.swing.JFrame {
                                 .addComponent(cmb_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(180, 180, 180)
-                                .addComponent(jCheckBox2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(213, 213, 213)
                                 .addComponent(jLbl_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cmb_cusProvince, 0, 1, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 52, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                                .addComponent(jLbl_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLbl_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLbl_cusAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusCity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmb_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -577,9 +896,6 @@ public class SearchCustomer extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLbl_addNewCus, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -592,6 +908,36 @@ public class SearchCustomer extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chk_ID)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chk_Title)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chk_Name)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chk_NIC)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chk_Contact)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chk_Address)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chk_City)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chk_Province)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chk_Postal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chk_Birthday)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chk_Email)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLbl_cusAddress, jLbl_cusCity, jLbl_cusPostalCode});
@@ -606,74 +952,76 @@ public class SearchCustomer extends javax.swing.JFrame {
                         .addGap(10, 10, 10)
                         .addComponent(btn_logout, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmb_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusName))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cmb_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusContactNum)
+                            .addComponent(cmb_cusContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cmb_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmb_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLbl_cusProvince)
+                                .addComponent(cmb_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(8, 8, 8))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cmb_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLbl_cusAddress))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cmb_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLbl_cusCity)))))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_searchCustomer)
+                    .addComponent(btn_searchCustomer1)
+                    .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cmb_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLbl_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(11, 11, 11)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jCheckBox5)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cmb_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLbl_cusName))
-                                    .addComponent(jCheckBox4))
-                                .addGap(12, 12, 12)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(cmb_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLbl_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLbl_cusContactNum)
-                                                .addComponent(cmb_cusContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jCheckBox8, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(7, 7, 7)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(cmb_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(jCheckBox9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jCheckBox6))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(5, 5, 5)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(cmb_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                    .addComponent(jCheckBox7)))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLbl_cusProvince)
-                                        .addComponent(cmb_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(8, 8, 8))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cmb_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLbl_cusAddress))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cmb_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLbl_cusCity)
-                                        .addComponent(jCheckBox2)))))
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_searchCustomer)
-                            .addComponent(btn_searchCustomer1)
-                            .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(4, 4, 4)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                        .addGap(13, 13, 13))
+                                .addComponent(chk_ID)
+                                .addComponent(jLabel1))
+                            .addComponent(chk_Title)
+                            .addComponent(chk_Name)
+                            .addComponent(chk_Contact)
+                            .addComponent(chk_Address)
+                            .addComponent(chk_City)
+                            .addComponent(chk_Province)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(chk_Postal)
+                                .addComponent(chk_Birthday)
+                                .addComponent(chk_Email)))
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCheckBox3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(chk_NIC)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmb_cusAddress, cmb_cusCity, cmb_cusPostalCode, cmb_cusProvince});
@@ -824,41 +1172,41 @@ public class SearchCustomer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_cusIDActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void chk_IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_IDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_chk_IDActionPerformed
 
-    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+    private void chk_PostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_PostalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox2ActionPerformed
+    }//GEN-LAST:event_chk_PostalActionPerformed
 
-    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+    private void chk_NICActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_NICActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox3ActionPerformed
+    }//GEN-LAST:event_chk_NICActionPerformed
 
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
+    private void chk_TitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_TitleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
+    }//GEN-LAST:event_chk_TitleActionPerformed
 
-    private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
+    private void chk_AddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_AddressActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox5ActionPerformed
+    }//GEN-LAST:event_chk_AddressActionPerformed
 
-    private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
+    private void chk_ContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_ContactActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox6ActionPerformed
+    }//GEN-LAST:event_chk_ContactActionPerformed
 
-    private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
+    private void chk_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_NameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox7ActionPerformed
+    }//GEN-LAST:event_chk_NameActionPerformed
 
-    private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
+    private void chk_CityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_CityActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox8ActionPerformed
+    }//GEN-LAST:event_chk_CityActionPerformed
 
-    private void jCheckBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox9ActionPerformed
+    private void chk_ProvinceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chk_ProvinceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox9ActionPerformed
+    }//GEN-LAST:event_chk_ProvinceActionPerformed
 
     /**
      * @param args the command line arguments
@@ -910,6 +1258,17 @@ public class SearchCustomer extends javax.swing.JFrame {
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_searchCustomer;
     private javax.swing.JButton btn_searchCustomer1;
+    private javax.swing.JCheckBox chk_Address;
+    private javax.swing.JCheckBox chk_Birthday;
+    private javax.swing.JCheckBox chk_City;
+    private javax.swing.JCheckBox chk_Contact;
+    private javax.swing.JCheckBox chk_Email;
+    private javax.swing.JCheckBox chk_ID;
+    private javax.swing.JCheckBox chk_NIC;
+    private javax.swing.JCheckBox chk_Name;
+    private javax.swing.JCheckBox chk_Postal;
+    private javax.swing.JCheckBox chk_Province;
+    private javax.swing.JCheckBox chk_Title;
     private javax.swing.JComboBox<String> cmb_cusAddress;
     private javax.swing.JComboBox<String> cmb_cusCity;
     private javax.swing.JComboBox<String> cmb_cusContact;
@@ -920,15 +1279,7 @@ public class SearchCustomer extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmb_cusPostalCode;
     private javax.swing.JComboBox<String> cmb_cusProvince;
     private javax.swing.JComboBox<String> cmb_cusTitle;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLbl_addNewCus;
     private javax.swing.JLabel jLbl_cusAddress;
     private javax.swing.JLabel jLbl_cusCity;
@@ -943,6 +1294,7 @@ public class SearchCustomer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTbl_SearchCustomers;
     // End of variables declaration//GEN-END:variables
 }

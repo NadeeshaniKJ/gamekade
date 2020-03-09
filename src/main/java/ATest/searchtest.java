@@ -15,6 +15,7 @@ import controller.ComponentUtilities.TableController;
 import controller.ComponentUtilities.ValidateValues;
 import controller.dataUtilities.CustomerUtilities;
 import java.awt.Color;
+import java.awt.List;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import model.CustomerModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -51,9 +53,18 @@ public class searchtest extends javax.swing.JFrame {
     JTextField txtcusPostalCode;
     JTextField txtcusProvince;
     JTextField txtcusCity;
+    
+    ArrayList<Object> tableList;// = CustomerUtilities.getAllCustomers();
+    
+      private Object[][] cells ;
+private String[] columnNames;
+JTable mytable = new JTable(cells ,columnNames);
 
     public searchtest() {
         initComponents();
+        JTable mytable = new JTable(cells ,columnNames);
+        
+      
         loadTable();
         loadCombo();
 
@@ -64,12 +75,12 @@ public class searchtest extends javax.swing.JFrame {
             public void run() {
 
                 try {
-                    TableController.addDataToTable(jTbl_SearchCustomers, "Select * FROM CUSTOMER");
+                    TableController.addDataToTable(mytable, "Select * FROM CUSTOMER");
                 } catch (Exception e) {
                 }
             }
         }.start();
-        jTbl_SearchCustomers.setAutoCreateRowSorter(true);
+        mytable.setAutoCreateRowSorter(true);
     }
 
     private void loadCombo() {
@@ -203,7 +214,6 @@ public class searchtest extends javax.swing.JFrame {
         cmb_cusProvince = new javax.swing.JComboBox<>();
         cmb_cusCity = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTbl_SearchCustomers = new javax.swing.JTable();
         btn_searchCustomer1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -298,24 +308,6 @@ public class searchtest extends javax.swing.JFrame {
         cmb_cusProvince.setEditable(true);
 
         cmb_cusCity.setEditable(true);
-
-        jTbl_SearchCustomers.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Title", "Name", "NIC", "Birth Day", "EMail address", "Contact No.", "Address", "City", "Province", "Postal Code"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true, true, true, true, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTbl_SearchCustomers);
 
         btn_searchCustomer1.setText("SEARCH ALL");
         btn_searchCustomer1.addActionListener(new java.awt.event.ActionListener() {
@@ -446,17 +438,14 @@ public class searchtest extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLbl_cusNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(7, 7, 7)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmb_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cmb_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmb_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cmb_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_searchCustomer)
@@ -598,7 +587,7 @@ public class searchtest extends javax.swing.JFrame {
                     public void run() {
 
                         try {
-                            TableController.addDataToTable(jTbl_SearchCustomers, newQuerry);
+                            TableController.addDataToTable(mytable, newQuerry);
                         } catch (Exception e) {
                         }
                     }
@@ -687,6 +676,5 @@ public class searchtest extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTbl_SearchCustomers;
     // End of variables declaration//GEN-END:variables
 }

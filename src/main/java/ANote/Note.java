@@ -96,4 +96,259 @@ public class Note {
                     Logger.getLogger(SerchCustomer.class.getName()).log(Level.SEVERE, null, ex);
                 }
     */
+    
+    /*
+    private void createTable() {
+        new Thread() {
+            public void run() {
+                columnNamesList = new ArrayList<String>();
+                columnNamesList.add("ID");
+                columnNamesList.add("TITLE");
+                columnNamesList.add("NAME");
+
+                cellsList = new ArrayList<String>();
+                cellsList.add("ID1");
+                cellsList.add("TITLE1");
+                cellsList.add("NAME1");
+
+                cells2 = new String[5][4];
+
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        cells2[i][j] = new String("g");
+                        System.out.println(i + " " + j + " " + cells[i][j]);
+                    }
+                    System.out.println("    ");
+                }
+                System.out.println("asasasas  " + cells[1][1]);
+                customerTable = new JTable(cells2, columnNames);
+                jScrollPane2.getViewport().add(customerTable);
+
+                /*
+                columnNamesList = new ArrayList<String>();
+                columnNamesList.add("ID");
+                columnNamesList.add("TITLE");
+                columnNamesList.add("NAME");
+                columnNamesList.add("NIC");
+                columnNamesList.add("BIRTHDAY");
+                columnNamesList.add("EMAIL");
+                columnNamesList.add("CONTACT");
+                columnNamesList.add("ADDRESS");
+                columnNamesList.add("CITY");
+                columnNamesList.add("PROVINCE");
+                columnNamesList.add("POSTAL CODE");
+
+                //*************************************************               
+                cellsList = new ArrayList<String>();
+                data = new String[cellsList.size()][columnNamesList.size()];
+                for (int i = 0; i < columnNamesList.size(); i++) {
+                    for (int j = 0; j < cellsList.size(); j++) {
+//                    columnNamesArr[i] = columnNamesList.get(i);
+                        data[j][i] = "g";
+
+                    }
+                }
+//******************************************************************
+
+                data = new String[1][columnNamesList.size()];
+                columnNamesArr = new String[columnNamesList.size()];
+                for (int i = 0; i < columnNamesList.size(); i++) {
+                    columnNamesArr[i] = columnNamesList.get(i);
+                    data[0][i] = "";
+                }
+
+                defaultTableModel = new DefaultTableModel(data, columnNamesArr);
+
+                customerTable = new JTable(defaultTableModel);
+                tableColumnModel = customerTable.getColumnModel();
+
+                for (int i = 0; i < columnNamesList.size(); i++) {
+                    tableColumnModel.getColumn(i).setPreferredWidth(columnNamesList.get(i).length());
+                }
+                customerTable.setPreferredScrollableViewportSize(customerTable.getPreferredSize());
+                jScrollPane2.getViewport().add(customerTable);
+
+                chk_ID.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_ID.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("ID");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("ID");
+                            toAdd.setIdentifier("ID");
+                            toAdd.setPreferredWidth("ID".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Title.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Title.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("TITLE");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("TITLE");
+                            toAdd.setIdentifier("TITLE");
+                            toAdd.setPreferredWidth("TITLE".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Name.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Name.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("NAME");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("NAME");
+                            toAdd.setIdentifier("NAME");
+                            toAdd.setPreferredWidth("NAME".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+
+                chk_NIC.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_NIC.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("NIC");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("NIC");
+                            toAdd.setIdentifier("NIC");
+                            toAdd.setPreferredWidth("NIC".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Birthday.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Birthday.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("BIRTHDAY");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("BIRTHDAY");
+                            toAdd.setIdentifier("BIRTHDAY");
+                            toAdd.setPreferredWidth("BIRTHDAY".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Contact.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Contact.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("CONTACT");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("CONTACT");
+                            toAdd.setIdentifier("CONTACT");
+                            toAdd.setPreferredWidth("CONTACT".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Email.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Email.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("EMAIL");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("EMAIL");
+                            toAdd.setIdentifier("EMAIL");
+                            toAdd.setPreferredWidth("EMAIL".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Address.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Address.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("ADDRESS");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("ADDRESS");
+                            toAdd.setIdentifier("ADDRESS");
+                            toAdd.setPreferredWidth("ADDRESS".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_City.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_City.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("CITY");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("CITY");
+                            toAdd.setIdentifier("CITY");
+                            toAdd.setPreferredWidth("CITY".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Province.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Province.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("PROVINCE");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("PROVINCE");
+                            toAdd.setIdentifier("PROVINCE");
+                            toAdd.setPreferredWidth("PROVINCE".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+                chk_Postal.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        if (!chk_Postal.isSelected()) {
+                            TableColumn toRemove = customerTable.getColumn("POSTAL CODE");
+                            customerTable.removeColumn(toRemove);
+                            customerTable.validate();
+                        } else {
+                            TableColumn toAdd = new TableColumn();
+                            toAdd.setHeaderValue("POSTAL CODE");
+                            toAdd.setIdentifier("POSTAL CODE");
+                            toAdd.setPreferredWidth("POSTAL CODE".length());
+                            customerTable.addColumn(toAdd);
+                            customerTable.validate();
+                        }
+                    }
+                });
+            }
+        }.start();
+        jTbl_SearchCustomers.setAutoCreateRowSorter(true);
+    }
+
+    */
 }
