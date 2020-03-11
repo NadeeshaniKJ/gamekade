@@ -5,6 +5,8 @@
  */
 package View.Customer;
 
+import ATest.ButtonEditor;
+import ATest.ButtonRenderer;
 import controller.ComponentUtilities.ComboSearch;
 import controller.ComponentUtilities.ComboSearch2;
 import controller.ComponentUtilities.GetBirthDay;
@@ -23,6 +25,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import model.CustomerModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -40,7 +43,7 @@ public class SearchCustomer extends javax.swing.JFrame {
     boolean NICCheck = true;
     boolean contactCheck = true;
     boolean emailCheck = true;
-
+    
     JTextField txtcusID, txtcusName, txtcusTitle, txtcusNIC, txtcusContact, txtcusEmail,
             txtcusAddress, txtcusPostalCode, txtcusProvince, txtcusCity;
 
@@ -53,22 +56,45 @@ public class SearchCustomer extends javax.swing.JFrame {
         loadTable();
         loadCombo();
         setCombeKey();
-
+        
     }
-
+    
     private void loadTable() {
         new Thread() {
             public void run() {
-
+                
                 try {
                     TableController.addDataToTable(jTbl_SearchCustomers, "Select * FROM CUSTOMER");
+                    jTbl_SearchCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+                        @Override
+                        public void mouseClicked(java.awt.event.MouseEvent evt) {
+                            int row = jTbl_SearchCustomers.rowAtPoint(evt.getPoint());
+                            int col = jTbl_SearchCustomers.columnAtPoint(evt.getPoint());
+                            final String valueInCell = (String) jTbl_SearchCustomers.getValueAt(row, col);
+
+                            //for verification
+                            try {
+                                System.out.println(valueInCell);
+                                CustomerModel cus = CustomerUtilities.getCustomer(valueInCell);
+                                System.out.println(cus.getCustomer_name() + " " + cus.getCustomer_title());
+                            } catch (Exception ex) {
+                                Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            // verifiction ends
+
+                            DeleteCustomer Delete = new DeleteCustomer(valueInCell);
+                            Delete.setVisible(true);
+                            Delete.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                            
+                        }
+                    });
                 } catch (Exception e) {
                 }
             }
         }.start();
         jTbl_SearchCustomers.setAutoCreateRowSorter(true);
     }
-
+    
     private void loadCombo() {
         try {
             //load data from database
@@ -84,7 +110,7 @@ public class SearchCustomer extends javax.swing.JFrame {
                 cmb_cusPostalCode.addItem(c.getCustomer_postalcode());
                 cmb_cusProvince.addItem(c.getCustomer_province());
                 cmb_cusCity.addItem(c.getCustomer_city());
-
+                
                 SearchableCombo.orderComboItems(
                         cmb_cusID,
                         cmb_cusTitle,
@@ -121,15 +147,15 @@ public class SearchCustomer extends javax.swing.JFrame {
                     cmb_cusPostalCode,
                     cmb_cusProvince,
                     cmb_cusCity);
-
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SearchCustomer.class
                     .getName()).log(Level.SEVERE, null, ex);
-
+            
         } catch (IOException ex) {
             Logger.getLogger(SearchCustomer.class
                     .getName()).log(Level.SEVERE, null, ex);
-
+            
         } catch (Exception ex) {
             Logger.getLogger(SearchCustomer.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -146,7 +172,7 @@ public class SearchCustomer extends javax.swing.JFrame {
 //        System.out.println(currentIndex);
 //    }
     private void setCombeKey() {
-
+        
         try {
 //            for (int i = 0; i < cus_textfield.length; i++) {
 //                cus_textfield[i].addKeyListener(new KeyAdapter() {
@@ -180,7 +206,7 @@ public class SearchCustomer extends javax.swing.JFrame {
                     = (JTextField) cmb_cusProvince.getEditor().getEditorComponent();
             txtcusCity
                     = (JTextField) cmb_cusCity.getEditor().getEditorComponent();
-            cmb_cusID.addKeyListener(new KeyAdapter() {
+            txtcusID.addKeyListener(new KeyAdapter() {
                 public void keyReleased(KeyEvent evt) {
                     if (evt.getKeyCode() == KeyEvent.VK_F2) {
                         txtcusTitle.requestFocus();
@@ -276,7 +302,7 @@ public class SearchCustomer extends javax.swing.JFrame {
             });
         } catch (Exception e) {
         }
-
+        
     }
 
     /**
@@ -304,7 +330,7 @@ public class SearchCustomer extends javax.swing.JFrame {
         cmb_cusID = new javax.swing.JComboBox<>();
         cmb_cusTitle = new javax.swing.JComboBox<>();
         btn_searchCustomer = new javax.swing.JButton();
-        btn_cancle = new javax.swing.JButton();
+        btn_clear = new javax.swing.JButton();
         btn_logout = new javax.swing.JButton();
         cmb_cusName = new javax.swing.JComboBox<>();
         cmb_cusNIC = new javax.swing.JComboBox<>();
@@ -326,6 +352,8 @@ public class SearchCustomer extends javax.swing.JFrame {
         jCheckBox7 = new javax.swing.JCheckBox();
         jCheckBox8 = new javax.swing.JCheckBox();
         jCheckBox9 = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1200, 920));
@@ -355,6 +383,7 @@ public class SearchCustomer extends javax.swing.JFrame {
 
         jLbl_cusPostalCode.setText("POSTAL CODE :");
 
+        cmb_cusID.setEditable(true);
         cmb_cusID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_cusIDActionPerformed(evt);
@@ -375,7 +404,12 @@ public class SearchCustomer extends javax.swing.JFrame {
             }
         });
 
-        btn_cancle.setText("CLEAR");
+        btn_clear.setText("CLEAR");
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
 
         btn_logout.setText("LOGOUT");
 
@@ -500,6 +534,10 @@ public class SearchCustomer extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("F1 : Next edit Text Field");
+
+        jLabel2.setText("F2 : Previous edit Text Field");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -531,9 +569,9 @@ public class SearchCustomer extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jCheckBox1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLbl_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLbl_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmb_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23)
                         .addComponent(jCheckBox3)
@@ -590,7 +628,11 @@ public class SearchCustomer extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btn_searchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(146, 146, 146)
+                        .addComponent(jLabel1)
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
 
@@ -609,7 +651,7 @@ public class SearchCustomer extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox1)
+                            .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -659,15 +701,18 @@ public class SearchCustomer extends javax.swing.JFrame {
                                         .addComponent(cmb_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLbl_cusAddress))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cmb_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLbl_cusCity)
-                                        .addComponent(jCheckBox2)))))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(cmb_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLbl_cusCity))))))
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_searchCustomer)
                             .addComponent(btn_searchCustomer1)
-                            .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addGap(4, 4, 4)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
                         .addGap(13, 13, 13))
@@ -678,7 +723,7 @@ public class SearchCustomer extends javax.swing.JFrame {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmb_cusAddress, cmb_cusCity, cmb_cusPostalCode, cmb_cusProvince});
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_cancle, btn_searchCustomer, btn_searchCustomer1});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btn_clear, btn_searchCustomer, btn_searchCustomer1});
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLbl_cusAddress, jLbl_cusCity, jLbl_cusPostalCode, jLbl_cusProvince});
 
@@ -712,39 +757,10 @@ public class SearchCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_cmb_cusNameFocusGained
 
     private void btn_searchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchCustomerActionPerformed
-
-        //        try {
-        //            if (!nameCheck) {
-        //                JOptionPane.showMessageDialog(null, "Please enter Name");
-        //            } else if (!NICCheck) {
-        //                JOptionPane.showMessageDialog(null, "Please enter valid NIC");
-        //            } else if (!contactCheck) {
-        //                JOptionPane.showMessageDialog(null, "Please enter valid contact number");
-        //            } else if (!emailCheck) {
-        //                JOptionPane.showMessageDialog(null, "Please enter email");
-        //            } else {
-        //                String id = AutoGenerateID.getNextID("CUSTOMER", "customer_id", "C", 5);
-        //                String birthDay = "0000-00-00";
-        //                if (!txt_cusNIC.getText().isEmpty()) {
-        //                    birthDay = GetBirthDay.getBirthDay(txt_cusNIC.getText());
-        //                }
-        //
-        //                CustomerModel NewCustomer = new CustomerModel(
-        //                    id,
-        //                    cmb_cusTitle.getSelectedItem().toString(),
-        //                    txt_cusName.getText(),
-        //                    txt_cusNIC.getText(),
-        //                    birthDay,
-        //                    txt_cusContactNumber.getText(),
-        //                    txt_cusEmailAddress.getText(),
-        //                    txt_cusAddress.getText(),
-        //                    txt_cusCity.getText(),
-        //                    txt_cusProvince.getText(),
-        //                    txt_cusPostalCode.getText()
-        //                );
-        //                CustomerUtilities.addCustomer(NewCustomer);
-        txtcusName = (JTextField) cmb_cusName.getEditor().getEditorComponent();
+        
+        txtcusID = (JTextField) cmb_cusID.getEditor().getEditorComponent();
         txtcusTitle = (JTextField) cmb_cusTitle.getEditor().getEditorComponent();
+        txtcusName = (JTextField) cmb_cusName.getEditor().getEditorComponent();
         txtcusNIC = (JTextField) cmb_cusNIC.getEditor().getEditorComponent();
         txtcusContact = (JTextField) cmb_cusContact.getEditor().getEditorComponent();
         txtcusEmail = (JTextField) cmb_cusEmail.getEditor().getEditorComponent();
@@ -752,8 +768,9 @@ public class SearchCustomer extends javax.swing.JFrame {
         txtcusCity = (JTextField) cmb_cusCity.getEditor().getEditorComponent();
         txtcusProvince = (JTextField) cmb_cusProvince.getEditor().getEditorComponent();
         txtcusPostalCode = (JTextField) cmb_cusPostalCode.getEditor().getEditorComponent();
-
+        
         String[] allValues = {
+            txtcusID.getText(),
             txtcusTitle.getText(),
             txtcusName.getText(),
             txtcusNIC.getText(),
@@ -763,8 +780,9 @@ public class SearchCustomer extends javax.swing.JFrame {
             txtcusCity.getText(),
             txtcusProvince.getText(),
             txtcusPostalCode.getText()};
-
+        
         String[] allColumns = {
+            "customer_id",
             "customer_title",
             "customer_name",
             "customer_nic",
@@ -774,46 +792,29 @@ public class SearchCustomer extends javax.swing.JFrame {
             "customer_city",
             "customer_province",
             "customer_postalcode"};
-
+        
         ArrayList<String> columns = new ArrayList<String>(); //= {"customer_name"};
         ArrayList<String> values = new ArrayList<String>(); //= {txtcusName.getText()};
-        ArrayList<Integer> removeColumn = new ArrayList<Integer>();
 
-        //        columns.add("customer_name");
-        //        values.add(txtcusName.getText());
         for (int i = 0; i < allValues.length; i++) {
             if (!allValues[i].equalsIgnoreCase("")) {
                 columns.add(allColumns[i]);
                 values.add(allValues[i]);
             }
-            //              removeColumn.add(i);
         }
-        //        for(String s:allValues){
-        //            if(s.equalsIgnoreCase("")){
-        //                 ;
-        //           }
-        //        }
-
+        
         String newQuerry = QuerryGenerate.Select_All_From_Where("CUSTOMER", columns, values);
         System.out.println(newQuerry);
-
+        
         new Thread() {
             public void run() {
-
+                
                 try {
                     TableController.addDataToTable(jTbl_SearchCustomers, newQuerry);
                 } catch (Exception e) {
                 }
             }
         }.start();
-        //            }
-        //        } catch (ClassNotFoundException ex) {
-        //            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        //        } catch (IOException ex) {
-        //            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        //        } catch (Exception ex) {
-        //            Logger.getLogger(AddCustomer.class.getName()).log(Level.SEVERE, null, ex);
-        //        }
     }//GEN-LAST:event_btn_searchCustomerActionPerformed
 
     private void cmb_cusTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_cusTitleActionPerformed
@@ -860,6 +861,19 @@ public class SearchCustomer extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox9ActionPerformed
 
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+        txtcusID.setText("");
+        txtcusTitle.setText("");
+        txtcusName.setText("");
+        txtcusNIC.setText("");
+        txtcusContact.setText("");
+        txtcusEmail.setText("");
+        txtcusAddress.setText("");
+        txtcusCity.setText("");
+        txtcusProvince.setText("");
+        txtcusPostalCode.setText("");
+    }//GEN-LAST:event_btn_clearActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -874,21 +888,21 @@ public class SearchCustomer extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(SearchCustomer.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (InstantiationException ex) {
             java.util.logging.Logger.getLogger(SearchCustomer.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (IllegalAccessException ex) {
             java.util.logging.Logger.getLogger(SearchCustomer.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
+            
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(SearchCustomer.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -900,13 +914,13 @@ public class SearchCustomer extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new SearchCustomer().setVisible(true);
-
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_cancle;
+    private javax.swing.JButton btn_clear;
     private javax.swing.JButton btn_logout;
     private javax.swing.JButton btn_searchCustomer;
     private javax.swing.JButton btn_searchCustomer1;
@@ -929,6 +943,8 @@ public class SearchCustomer extends javax.swing.JFrame {
     private javax.swing.JCheckBox jCheckBox7;
     private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JCheckBox jCheckBox9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLbl_addNewCus;
     private javax.swing.JLabel jLbl_cusAddress;
     private javax.swing.JLabel jLbl_cusCity;

@@ -142,6 +142,11 @@ public class AddCustomer extends javax.swing.JFrame {
         });
 
         btn_cancle.setText("CANCEL");
+        btn_cancle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancleActionPerformed(evt);
+            }
+        });
 
         btn_logout.setText("LOGOUT");
 
@@ -315,15 +320,22 @@ public class AddCustomer extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_addCustomerActionPerformed
 
     private void txt_cusEmailAddressfocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusEmailAddressfocusLost
-        emailCheck = ValidateValues.emailValidation(txt_cusEmailAddress);
+       if (!txt_cusEmailAddress.getText().isEmpty()) {
+            emailCheck = ValidateValues.emailValidation(txt_cusEmailAddress);
+        }
     }//GEN-LAST:event_txt_cusEmailAddressfocusLost
 
     private void txt_cusNICFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusNICFocusLost
-        NICCheck = ValidateValues.NICValidation(txt_cusNIC);
+        if (!txt_cusNIC.getText().isEmpty()) {
+             NICCheck = ValidateValues.NICValidation(txt_cusNIC);
+        }
     }//GEN-LAST:event_txt_cusNICFocusLost
 
     private void txt_cusContactNumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusContactNumberFocusLost
-        contactCheck = ValidateValues.contactNumberValidation(txt_cusContactNumber);
+        if (!txt_cusContactNumber.getText().isEmpty()) {
+            contactCheck = ValidateValues.contactNumberValidation(txt_cusContactNumber);
+        }
+        
     }//GEN-LAST:event_txt_cusContactNumberFocusLost
 
     private void txt_cusNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusNameFocusLost
@@ -343,6 +355,10 @@ public class AddCustomer extends javax.swing.JFrame {
     private void txt_cusEmailAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_cusEmailAddressFocusGained
         txt_cusEmailAddress.setForeground(Color.BLACK);
     }//GEN-LAST:event_txt_cusEmailAddressFocusGained
+
+    private void btn_cancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancleActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_cancleActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,7 +5,6 @@
  */
 package ATest;
 
-import View.Customer.SampleForm;
 import ATest.addcus;
 import javax.swing.JButton;
 import javax.swing.JFrame;

@@ -15,11 +15,13 @@ public class Note {
     
     1 comiit changes as key combination added
     2 check box for table column selection added
-    3 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added
-    4 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added with update and delete options
+    3 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added -done
+    4 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added with update and delete options for button click
+    when clicked delete button, delete entry, when clicked update button, load form with editable text fields 
     5 home button
     6 cancel button to clean selections added
     7 logout added
+    8 add raw sorter to total values of table in asc order 
     
     
     customer home>>
@@ -70,6 +72,8 @@ public class Note {
     Calling pack() will usually result in the window being resized to fit the contents' preferred size.)
     
     ****Set Layout to Boarder Layout to set the size of inside component (JtabbedPane) change with JFrame
+    
+    **** add bottom buttons to new pane, set vetical gap of table to its layered pane to zero
     
     ***jSplitPane1.setRightComponent(addCustomerJLPane); to add jpanels to jsplit pane rightcomponenet on button click
     

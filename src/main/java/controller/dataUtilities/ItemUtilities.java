@@ -62,7 +62,7 @@ public class ItemUtilities {
         }
     }
     
-    public static void deleteInvoice(ItemModel item) 
+    public static void deleteItem(ItemModel item) 
             throws SQLException, ClassNotFoundException, IOException, Exception{
       
             Connection con =  DBCon.getConnection();

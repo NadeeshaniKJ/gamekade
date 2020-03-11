@@ -5,9 +5,15 @@
  */
 package View.Home;
 
+import View.Customer.AddCustomer;
+import View.Customer.DeleteCustomer;
+import View.Customer.SearchCustomer;
 import controller.ComponentUtilities.TableController;
-
-
+import controller.dataUtilities.CustomerUtilities;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import model.CustomerModel;
 
 /**
  *
@@ -20,9 +26,9 @@ public class ShopHome extends javax.swing.JFrame {
      */
     public ShopHome() {
         initComponents();
-        setExtendedState(ShopHome.MAXIMIZED_BOTH);        
-        new Thread(){
-            public void run(){
+        setExtendedState(ShopHome.MAXIMIZED_BOTH);
+        new Thread() {
+            public void run() {
 
                 try {
                     TableController.addDataToTable(jTbl_AllSales, "Select * FROM CUSTOMER_ORDER");
@@ -35,7 +41,7 @@ public class ShopHome extends javax.swing.JFrame {
         }.start();
         jSplitPane1.setRightComponent(jLP_CustomerOrders);
         jTbl_AllSales.setAutoCreateRowSorter(true);
-        
+
     }
 
     /**
@@ -48,45 +54,45 @@ public class ShopHome extends javax.swing.JFrame {
     private void initComponents() {
 
         jLP_CustomerOrders = new javax.swing.JLayeredPane();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTbl_AllSales = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        btn_add1 = new javax.swing.JButton();
+        btn_edit1 = new javax.swing.JButton();
+        btn_search1 = new javax.swing.JButton();
+        btn_delete1 = new javax.swing.JButton();
+        btn_print1 = new javax.swing.JButton();
+        btn_settings1 = new javax.swing.JButton();
         jLP_Customers = new javax.swing.JLayeredPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTbl_AllCustomers = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        btn_add = new javax.swing.JButton();
+        btn_edit = new javax.swing.JButton();
+        btn_search = new javax.swing.JButton();
+        btn_delete = new javax.swing.JButton();
+        btn_print = new javax.swing.JButton();
+        btn_settings = new javax.swing.JButton();
         jLP_Items = new javax.swing.JLayeredPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTbl_AllIems = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
-        jButton17 = new javax.swing.JButton();
-        jButton18 = new javax.swing.JButton();
+        btn_add2 = new javax.swing.JButton();
+        btn_edit2 = new javax.swing.JButton();
+        btn_search2 = new javax.swing.JButton();
+        btn_delete2 = new javax.swing.JButton();
+        btn_print2 = new javax.swing.JButton();
+        btn_settings2 = new javax.swing.JButton();
         jLP_Suppliers = new javax.swing.JLayeredPane();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTbl_AllSuppliers = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
-        jButton19 = new javax.swing.JButton();
-        jButton20 = new javax.swing.JButton();
-        jButton21 = new javax.swing.JButton();
-        jButton22 = new javax.swing.JButton();
-        jButton23 = new javax.swing.JButton();
-        jButton24 = new javax.swing.JButton();
+        btn_add3 = new javax.swing.JButton();
+        btn_edit3 = new javax.swing.JButton();
+        btn_search3 = new javax.swing.JButton();
+        btn_delete3 = new javax.swing.JButton();
+        btn_print3 = new javax.swing.JButton();
+        btn_settings3 = new javax.swing.JButton();
         jLP_Users = new javax.swing.JLayeredPane();
         jLP_Help = new javax.swing.JLayeredPane();
         jLayeredPane1 = new javax.swing.JLayeredPane();
@@ -104,50 +110,6 @@ public class ShopHome extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jMenu4 = new javax.swing.JMenu();
-
-        jButton1.setText("New Sale");
-
-        jButton2.setText("Edit");
-
-        jButton3.setText("Search");
-
-        jButton4.setText("Delete");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Print");
-
-        jButton6.setText("Settings");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 365, Short.MAX_VALUE)
-                .addComponent(jButton6))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
 
         jTbl_AllSales.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -167,22 +129,81 @@ public class ShopHome extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTbl_AllSales);
 
-        jLP_CustomerOrders.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        btn_add1.setText("+New");
+        btn_add1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_add1ActionPerformed(evt);
+            }
+        });
+
+        btn_edit1.setText("Edit");
+        btn_edit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_edit1ActionPerformed(evt);
+            }
+        });
+
+        btn_search1.setText("Search");
+        btn_search1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_search1ActionPerformed(evt);
+            }
+        });
+
+        btn_delete1.setText("Delete");
+
+        btn_print1.setText("Print");
+        btn_print1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_print1ActionPerformed(evt);
+            }
+        });
+
+        btn_settings1.setText("Settings");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btn_add1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_edit1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_search1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_delete1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_print1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                .addComponent(btn_settings1))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btn_add1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(btn_edit1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_search1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_delete1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_print1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_settings1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         jLP_CustomerOrders.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLP_CustomerOrders.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLP_CustomerOrdersLayout = new javax.swing.GroupLayout(jLP_CustomerOrders);
         jLP_CustomerOrders.setLayout(jLP_CustomerOrdersLayout);
         jLP_CustomerOrdersLayout.setHorizontalGroup(
             jLP_CustomerOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
         );
         jLP_CustomerOrdersLayout.setVerticalGroup(
             jLP_CustomerOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLP_CustomerOrdersLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE))
         );
 
         jTbl_AllCustomers.setModel(new javax.swing.table.DefaultTableModel(
@@ -203,48 +224,63 @@ public class ShopHome extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTbl_AllCustomers);
 
-        jButton7.setText("New Customer");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btn_add.setText("+New");
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btn_addActionPerformed(evt);
             }
         });
 
-        jButton8.setText("Edit");
+        btn_edit.setText("Edit");
+        btn_edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editActionPerformed(evt);
+            }
+        });
 
-        jButton9.setText("Search");
+        btn_search.setText("Search");
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_searchActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText("Delete");
+        btn_delete.setText("Delete");
 
-        jButton11.setText("Print");
+        btn_print.setText("Print");
+        btn_print.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_printActionPerformed(evt);
+            }
+        });
 
-        jButton12.setText("Settings");
+        btn_settings.setText("Settings");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jButton7)
+                .addComponent(btn_add)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8)
+                .addComponent(btn_edit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9)
+                .addComponent(btn_search)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10)
+                .addComponent(btn_delete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
-                .addComponent(jButton12))
+                .addComponent(btn_print)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                .addComponent(btn_settings))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-            .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_add, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(btn_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_print, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_settings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLP_Customers.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -283,48 +319,63 @@ public class ShopHome extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(jTbl_AllIems);
 
-        jButton13.setText("New Product");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        btn_add2.setText("+New");
+        btn_add2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                btn_add2ActionPerformed(evt);
             }
         });
 
-        jButton14.setText("Edit Product");
+        btn_edit2.setText("Edit");
+        btn_edit2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_edit2ActionPerformed(evt);
+            }
+        });
 
-        jButton15.setText("Search Products");
+        btn_search2.setText("Search");
+        btn_search2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_search2ActionPerformed(evt);
+            }
+        });
 
-        jButton16.setText("Delete Product");
+        btn_delete2.setText("Delete");
 
-        jButton17.setText("Print");
+        btn_print2.setText("Print");
+        btn_print2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_print2ActionPerformed(evt);
+            }
+        });
 
-        jButton18.setText("Settings");
+        btn_settings2.setText("Settings");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jButton13)
+                .addComponent(btn_add2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton14)
+                .addComponent(btn_edit2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton15)
+                .addComponent(btn_search2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton16)
+                .addComponent(btn_delete2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
-                .addComponent(jButton18))
+                .addComponent(btn_print2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                .addComponent(btn_settings2))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-            .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_add2, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(btn_edit2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_search2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_delete2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_print2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_settings2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLP_Items.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -334,8 +385,8 @@ public class ShopHome extends javax.swing.JFrame {
         jLP_Items.setLayout(jLP_ItemsLayout);
         jLP_ItemsLayout.setHorizontalGroup(
             jLP_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane3)
         );
         jLP_ItemsLayout.setVerticalGroup(
             jLP_ItemsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,48 +414,63 @@ public class ShopHome extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jTbl_AllSuppliers);
 
-        jButton19.setText("New Product");
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
+        btn_add3.setText("+New");
+        btn_add3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
+                btn_add3ActionPerformed(evt);
             }
         });
 
-        jButton20.setText("Edit");
+        btn_edit3.setText("Edit");
+        btn_edit3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_edit3ActionPerformed(evt);
+            }
+        });
 
-        jButton21.setText("Search");
+        btn_search3.setText("Search");
+        btn_search3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_search3ActionPerformed(evt);
+            }
+        });
 
-        jButton22.setText("Delete");
+        btn_delete3.setText("Delete");
 
-        jButton23.setText("Print");
+        btn_print3.setText("Print");
+        btn_print3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_print3ActionPerformed(evt);
+            }
+        });
 
-        jButton24.setText("Settings");
+        btn_settings3.setText("Settings");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jButton19)
+                .addComponent(btn_add3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton20)
+                .addComponent(btn_edit3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton21)
+                .addComponent(btn_search3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton22)
+                .addComponent(btn_delete3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
-                .addComponent(jButton24))
+                .addComponent(btn_print3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                .addComponent(btn_settings3))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton19, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-            .addComponent(jButton20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_add3, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(btn_edit3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_search3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_delete3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_print3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_settings3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLP_Suppliers.setLayer(jScrollPane4, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -414,8 +480,8 @@ public class ShopHome extends javax.swing.JFrame {
         jLP_Suppliers.setLayout(jLP_SuppliersLayout);
         jLP_SuppliersLayout.setHorizontalGroup(
             jLP_SuppliersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane4)
         );
         jLP_SuppliersLayout.setVerticalGroup(
             jLP_SuppliersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -478,6 +544,11 @@ public class ShopHome extends javax.swing.JFrame {
         });
 
         btn_Users.setText("Users");
+        btn_Users.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_UsersActionPerformed(evt);
+            }
+        });
 
         btn_Help.setText("Help");
 
@@ -568,8 +639,8 @@ public class ShopHome extends javax.swing.JFrame {
         // TODO add your handling code here:
         jSplitPane1.setRightComponent(jLP_CustomerOrders);
         jTbl_AllSales.setAutoCreateRowSorter(true);
-        
-        
+
+
     }//GEN-LAST:event_btn_SalesActionPerformed
 
     private void btn_CustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CustomersActionPerformed
@@ -578,23 +649,18 @@ public class ShopHome extends javax.swing.JFrame {
         jTbl_AllCustomers.setAutoCreateRowSorter(true);
     }//GEN-LAST:event_btn_CustomersActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
-
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton19ActionPerformed
+        AddCustomer addCus = new AddCustomer();
+        addCus.setVisible(true);
+        addCus.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btn_addActionPerformed
 
     private void btn_ProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ProductsActionPerformed
         // TODO add your handling code here:
         jSplitPane1.setRightComponent(jLP_Items);
         jTbl_AllIems.setAutoCreateRowSorter(true);
-        
+
     }//GEN-LAST:event_btn_ProductsActionPerformed
 
     private void btn_SuppliersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_SuppliersActionPerformed
@@ -603,9 +669,98 @@ public class ShopHome extends javax.swing.JFrame {
         jTbl_AllSuppliers.setAutoCreateRowSorter(true);
     }//GEN-LAST:event_btn_SuppliersActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
+        try {
+
+            jTbl_AllCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    int row = jTbl_AllCustomers.rowAtPoint(evt.getPoint());
+                    int col = jTbl_AllCustomers.columnAtPoint(evt.getPoint());
+                    final String valueInCell = (String) jTbl_AllCustomers.getValueAt(row, col);
+
+                    //for verification
+                    try {
+                        System.out.println(valueInCell);
+                        CustomerModel cus = CustomerUtilities.getCustomer(valueInCell);
+                        System.out.println(cus.getCustomer_name() + " " + cus.getCustomer_title());
+                    } catch (Exception ex) {
+                        Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    // verifiction ends
+
+                    DeleteCustomer Delete = new DeleteCustomer(valueInCell);
+                    Delete.setVisible(true);
+                    Delete.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+                }
+            });
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btn_editActionPerformed
+
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
+
+        SearchCustomer search = new SearchCustomer();
+        search.setVisible(true);
+        search.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btn_searchActionPerformed
+
+    private void btn_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_printActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btn_printActionPerformed
+
+    private void btn_add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_add1ActionPerformed
+
+    private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_edit1ActionPerformed
+
+    private void btn_search1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_search1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_search1ActionPerformed
+
+    private void btn_print1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_print1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_print1ActionPerformed
+
+    private void btn_add2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_add2ActionPerformed
+
+    private void btn_edit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_edit2ActionPerformed
+
+    private void btn_search2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_search2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_search2ActionPerformed
+
+    private void btn_print2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_print2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_print2ActionPerformed
+
+    private void btn_add3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_add3ActionPerformed
+
+    private void btn_edit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_edit3ActionPerformed
+
+    private void btn_search3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_search3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_search3ActionPerformed
+
+    private void btn_print3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_print3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_print3ActionPerformed
+
+    private void btn_UsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_UsersActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_UsersActionPerformed
 
     /**
      * @param args the command line arguments
@@ -649,30 +804,30 @@ public class ShopHome extends javax.swing.JFrame {
     private javax.swing.JButton btn_Sales;
     private javax.swing.JButton btn_Suppliers;
     private javax.swing.JButton btn_Users;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
-    private javax.swing.JButton jButton16;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
-    private javax.swing.JButton jButton21;
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton btn_add;
+    private javax.swing.JButton btn_add1;
+    private javax.swing.JButton btn_add2;
+    private javax.swing.JButton btn_add3;
+    private javax.swing.JButton btn_delete;
+    private javax.swing.JButton btn_delete1;
+    private javax.swing.JButton btn_delete2;
+    private javax.swing.JButton btn_delete3;
+    private javax.swing.JButton btn_edit;
+    private javax.swing.JButton btn_edit1;
+    private javax.swing.JButton btn_edit2;
+    private javax.swing.JButton btn_edit3;
+    private javax.swing.JButton btn_print;
+    private javax.swing.JButton btn_print1;
+    private javax.swing.JButton btn_print2;
+    private javax.swing.JButton btn_print3;
+    private javax.swing.JButton btn_search;
+    private javax.swing.JButton btn_search1;
+    private javax.swing.JButton btn_search2;
+    private javax.swing.JButton btn_search3;
+    private javax.swing.JButton btn_settings;
+    private javax.swing.JButton btn_settings1;
+    private javax.swing.JButton btn_settings2;
+    private javax.swing.JButton btn_settings3;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLayeredPane jLP_CustomerOrders;
     private javax.swing.JLayeredPane jLP_Customers;
