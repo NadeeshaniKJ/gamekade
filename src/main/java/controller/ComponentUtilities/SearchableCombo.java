@@ -222,4 +222,11 @@ public class SearchableCombo {
         }
         
     }
+     public static void setSelectedComboItem(String s, final JComboBox... cmb) {
+        
+        for (JComboBox cmb1 : cmb) {
+            cmb1.setSelectedItem(s);
+        }
+        
+    }
 }

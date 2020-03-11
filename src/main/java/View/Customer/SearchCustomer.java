@@ -82,9 +82,9 @@ public class SearchCustomer extends javax.swing.JFrame {
                             }
                             // verifiction ends
 
-                            DeleteCustomer Delete = new DeleteCustomer(valueInCell);
-                            Delete.setVisible(true);
-                            Delete.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                            View_or_DeleteCustomer view = new View_or_DeleteCustomer(valueInCell);
+                            view.setVisible(true);
+                            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                             
                         }
                     });

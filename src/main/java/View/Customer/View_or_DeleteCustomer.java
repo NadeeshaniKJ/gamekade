@@ -16,16 +16,16 @@ import model.CustomerModel;
  *
  * @author nadee
  */
-public class DeleteCustomer extends javax.swing.JFrame {
+public class View_or_DeleteCustomer extends javax.swing.JFrame {
 
     /**
      * Creates new form DeleteCustomer
      */
-    public DeleteCustomer() {
+    public View_or_DeleteCustomer() {
         initComponents();
     }
 
-    public DeleteCustomer(String customer_id) {
+    public View_or_DeleteCustomer(String customer_id) {
         initComponents();
         jLbl_cusIDValue.setText(customer_id);
         try {
@@ -40,7 +40,7 @@ public class DeleteCustomer extends javax.swing.JFrame {
             jLbl_cusProvinceValue.setText(cus.getCustomer_province());
             jLbl_cusPostalCodeValue.setText(cus.getCustomer_postalcode());
         } catch (Exception ex) {
-            Logger.getLogger(DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -267,11 +267,11 @@ public class DeleteCustomer extends javax.swing.JFrame {
         try {
             CustomerUtilities.deleteCustomer(CusID);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
         
@@ -312,20 +312,23 @@ public class DeleteCustomer extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeleteCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeleteCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeleteCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeleteCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DeleteCustomer().setVisible(true);
+                new View_or_DeleteCustomer().setVisible(true);
             }
         });
     }

@@ -8,15 +8,19 @@ package View.CustomerOrder;
 import View.Customer.*;
 import controller.ComponentUtilities.AutoGenerateID;
 import controller.ComponentUtilities.GetBirthDay;
+import controller.ComponentUtilities.SearchableCombo;
 import controller.ComponentUtilities.ValidateValues;
 import controller.dataUtilities.CustomerUtilities;
+import controller.dataUtilities.ItemUtilities;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.CustomerModel;
+import model.ItemModel;
 
 /**
  *
@@ -37,9 +41,39 @@ public class AddCustomerOrder extends javax.swing.JFrame {
         initComponents();
 //        this.setBackground(new Color(1.0f, 1.0f, 1.0f, 0.0f));
 //        this.setLocationRelativeTo(null);
-
+        loadCombo();
         jTable1.setTableHeader(null);
         setExtendedState(AddCustomerOrder.MAXIMIZED_BOTH);
+    }
+
+    private void loadCombo() {
+        try {
+            //load data from database
+            ArrayList<ItemModel> arItem = ItemUtilities.showAllItems();
+            for (ItemModel c : arItem) {
+                cmb_itemSearch.addItem(c.getItem_id());
+                cmb_itemSearch.addItem(c.getItem_name());
+
+                SearchableCombo.orderComboItems(cmb_itemSearch);
+            }
+            SearchableCombo.setSearchableCombo(
+                    true, "<<<<No Results>>>>", cmb_itemSearch);
+            SearchableCombo.selectedComboItems(
+                    cmb_itemSearch);
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SearchCustomer.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        } catch (IOException ex) {
+            Logger.getLogger(SearchCustomer.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+        } catch (Exception ex) {
+            Logger.getLogger(SearchCustomer.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        cmb_itemSearch.requestFocus();
     }
 
     /**
@@ -53,7 +87,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLbl_addNewCus = new javax.swing.JLabel();
-        cmb_cusTitle = new javax.swing.JComboBox<>();
+        cmb_itemSearch = new javax.swing.JComboBox<>();
         jLbl_cusNIC = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -92,7 +126,8 @@ public class AddCustomerOrder extends javax.swing.JFrame {
         jLbl_addNewCus.setForeground(new java.awt.Color(51, 102, 255));
         jLbl_addNewCus.setText("NEW SALE");
 
-        cmb_cusTitle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SEARCH BY CODE OR NAME" }));
+        cmb_itemSearch.setEditable(true);
+        cmb_itemSearch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SEARCH BY CODE OR NAME" }));
 
         jLbl_cusNIC.setText("DATE :");
 
@@ -152,17 +187,17 @@ public class AddCustomerOrder extends javax.swing.JFrame {
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "", "", ""
+                "", "", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                true, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -171,9 +206,10 @@ public class AddCustomerOrder extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(1000);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(1000);
             jTable1.getColumnModel().getColumn(2).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(20);
         }
 
         jLbl_cusTitle.setText("ITEM :");
@@ -187,7 +223,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
         jLbl_cusEmail.setText("QTY :");
 
         jLayeredPane1.setLayer(jLbl_addNewCus, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(cmb_cusTitle, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(cmb_itemSearch, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLbl_cusNIC, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -224,7 +260,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cmb_cusTitle, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cmb_itemSearch, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(9, 9, 9))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
@@ -286,7 +322,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_itemSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLbl_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -415,19 +451,18 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                     birthDay = GetBirthDay.getBirthDay(txt_cusNIC.getText());
                 }
 
-                CustomerModel NewCustomer = new CustomerModel(
-//                        id,
-//                        cmb_cusTitle.getSelectedItem().toString(),
-//                        txt_cusName.getText(),
-//                        txt_cusNIC.getText(),
-//                        birthDay,
-//                        txt_cusContactNumber.getText(),
-//                        txt_cusEmailAddress.getText(),
-//                        txt_cusAddress.getText(),
-//                        txt_cusCity.getText(),
-//                        txt_cusProvince.getText(),
-//                        txt_cusPostalCode.getText()
-                );
+                CustomerModel NewCustomer = new CustomerModel( //                        id,
+                        //                        cmb_cusTitle.getSelectedItem().toString(),
+                        //                        txt_cusName.getText(),
+                        //                        txt_cusNIC.getText(),
+                        //                        birthDay,
+                        //                        txt_cusContactNumber.getText(),
+                        //                        txt_cusEmailAddress.getText(),
+                        //                        txt_cusAddress.getText(),
+                        //                        txt_cusCity.getText(),
+                        //                        txt_cusProvince.getText(),
+                        //                        txt_cusPostalCode.getText()
+                        );
                 CustomerUtilities.addCustomer(NewCustomer);
             }
         } catch (ClassNotFoundException ex) {
@@ -527,7 +562,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
     private javax.swing.JButton btn_addCustomer;
     private javax.swing.JButton btn_cancle;
     private javax.swing.JButton btn_logout;
-    private javax.swing.JComboBox<String> cmb_cusTitle;
+    private javax.swing.JComboBox<String> cmb_itemSearch;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

@@ -6,7 +6,7 @@
 package View.Home;
 
 import View.Customer.AddCustomer;
-import View.Customer.DeleteCustomer;
+import View.Customer.View_or_DeleteCustomer;
 import View.Customer.SearchCustomer;
 import controller.ComponentUtilities.TableController;
 import controller.dataUtilities.CustomerUtilities;
@@ -689,7 +689,7 @@ public class ShopHome extends javax.swing.JFrame {
                     }
                     // verifiction ends
 
-                    DeleteCustomer Delete = new DeleteCustomer(valueInCell);
+                    View_or_DeleteCustomer Delete = new View_or_DeleteCustomer(valueInCell);
                     Delete.setVisible(true);
                     Delete.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
