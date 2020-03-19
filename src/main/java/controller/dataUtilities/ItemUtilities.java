@@ -95,6 +95,26 @@ public class ItemUtilities {
             }
         return item;
     }
+    public static ItemModel showItemWithName(String item_name) 
+            throws Exception {
+       
+        ItemModel item = new ItemModel();
+       
+            Connection con = DBCon.getConnection();
+            String query = "SELECT * FROM ITEM WHERE item_name='" + item_name + "'";
+            ResultSet result = DBHandle.getData(con, query);
+            while (result.next()) {
+                item.setItem_id(result.getString("item_id"));
+                item.setItem_category_id(result.getString("item_category_id"));
+                item.setItem_name(result.getString("item_name"));
+                item.setItem_unit(result.getString("item_unit"));
+                item.setItem_unit_price(result.getString("item_unit_price"));
+                item.setQty_onhand(result.getString("qty_onhand"));
+            }
+        return item;
+    }
+    
+ 
 
     public static ArrayList showAllItems() throws SQLException, 
             ClassNotFoundException, IOException, Exception {

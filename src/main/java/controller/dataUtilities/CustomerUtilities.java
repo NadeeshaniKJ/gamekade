@@ -132,6 +132,10 @@ public class CustomerUtilities {
 
         return customer;
     }
+     public static CustomerModel getCustomer(String Customer_id, int i) throws Exception {
+     CustomerModel customer = new CustomerModel();
+         return customer;   
+     }
 
     public static ArrayList getAllCustomers() throws SQLException,
             ClassNotFoundException, IOException, Exception {

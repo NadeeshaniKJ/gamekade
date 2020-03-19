@@ -408,11 +408,11 @@ public class UpdateCustomerOrder extends javax.swing.JFrame {
                 CustomerUtilities.updateCustomer(NewCustomer);
             }
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddCustomerOrderold.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddCustomerOrderold.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AddCustomerOrderold.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

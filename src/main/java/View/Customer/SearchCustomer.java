@@ -55,7 +55,7 @@ public class SearchCustomer extends javax.swing.JFrame {
         initComponents();
         loadTable();
         loadCombo();
-        setCombeKey();
+        setCombeKeyListener();
         
     }
     
@@ -65,13 +65,15 @@ public class SearchCustomer extends javax.swing.JFrame {
                 
                 try {
                     TableController.addDataToTable(jTbl_SearchCustomers, "Select * FROM CUSTOMER");
+                    
                     jTbl_SearchCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
                         @Override
                         public void mouseClicked(java.awt.event.MouseEvent evt) {
                             int row = jTbl_SearchCustomers.rowAtPoint(evt.getPoint());
-                            int col = jTbl_SearchCustomers.columnAtPoint(evt.getPoint());
-                            final String valueInCell = (String) jTbl_SearchCustomers.getValueAt(row, col);
-
+//                            int col = jTbl_SearchCustomers.columnAtPoint(evt.getPoint());                        
+                           
+                                final String valueInCell = (String) jTbl_SearchCustomers.getValueAt(row, 0);                                                    
+                            
                             //for verification
                             try {
                                 System.out.println(valueInCell);
@@ -85,8 +87,8 @@ public class SearchCustomer extends javax.swing.JFrame {
                             View_or_DeleteCustomer view = new View_or_DeleteCustomer(valueInCell);
                             view.setVisible(true);
                             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-                            
-                        }
+                            }
+                        
                     });
                 } catch (Exception e) {
                 }
@@ -171,7 +173,7 @@ public class SearchCustomer extends javax.swing.JFrame {
 //        currentIndex = index;
 //        System.out.println(currentIndex);
 //    }
-    private void setCombeKey() {
+    private void setCombeKeyListener() {
         
         try {
 //            for (int i = 0; i < cus_textfield.length; i++) {

@@ -13,15 +13,25 @@ public class Note {
     
     /*
     
-    1 comiit changes as key combination added
+    add customer orde: 
+    check resize and layout issue 
+    comit- add customer order
+    
+    1 comiit changes ti git as key combination added
     2 check box for table column selection added
     3 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added -done
-    4 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added with update and delete options for button click
+    4 GET CUSTOMER DETAILS WHEN CLICKED ON A CUSTOMER added with update and delete options for button click -done
     when clicked delete button, delete entry, when clicked update button, load form with editable text fields 
     5 home button
     6 cancel button to clean selections added
     7 logout added
     8 add raw sorter to total values of table in asc order 
+    9 set if exist don't allow insert - check  for contact , nic and name 
+    10 JDialog https://stackoverflow.com/questions/11260926/how-to-add-components-to-jdialog
+    11 mulitiple input in JOpotion pane https://stackoverflow.com/questions/6555040/multiple-input-in-joptionpane-showinputdialog/6555051
+    
+    addCustomerOrder>>>
+    notes and payment mode does not get saved in data base
     
     
     customer home>>
