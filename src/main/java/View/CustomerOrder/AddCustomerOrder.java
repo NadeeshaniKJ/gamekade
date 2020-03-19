@@ -150,13 +150,16 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                 if (evt.getKeyCode() == KeyEvent.VK_F1) {
                     loadComboCustomerSearch();
 
-                   
+                    Object[] cusOptions = {"OK", "CANCEL"};
 
-                    int result = JOptionPane.showConfirmDialog(null,
-                            jPanel_Customer, "Please Select Customer",
-                            JOptionPane.OK_CANCEL_OPTION);
+                    int result = JOptionPane.showOptionDialog(null, jPanel_Customer,
+                            "Please Select Customer",
+                            JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            cusOptions,
+                            null);
 
-                    txt_customer.requestFocusInWindow();
                     if (result == JOptionPane.OK_OPTION) {
                         customer_id = jLbl_cusIDValue.getText();
                         txt_Customer.setText(jLbl_cusNameValue.getText());
@@ -335,7 +338,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 options,
-                options[0]);
+                null);
 
         if (result == JOptionPane.YES_OPTION) {
             //send to database
