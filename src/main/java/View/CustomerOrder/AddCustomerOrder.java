@@ -21,6 +21,7 @@ import dbConnection.DBCon;
 import dbConnection.DBHandle;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.List;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -30,6 +31,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,9 +64,17 @@ public class AddCustomerOrder extends javax.swing.JFrame {
     DefaultTableModel tableModel;
     JTextField txt_item;
     JTextField txt_customer;
-    String customer_id = "";
+    String customer_id = "C00048";
     String discount = "0.0";
-    String datetime="";
+    String datetime = "";
+
+    ArrayList<CustomerOrderItemModel> items
+            = new ArrayList<CustomerOrderItemModel>();
+
+    String newid = AutoGenerateID.getNextID("CUSTOMER_ORDER_ITEM", "customer_order_item_id", "CI", 4);
+    int id = Integer.parseInt(newid.substring(2)) - 1;
+
+    String itemid;
 
     public AddCustomerOrder() {
         initComponents();
@@ -83,9 +93,11 @@ public class AddCustomerOrder extends javax.swing.JFrame {
         DateFormat df_time = new SimpleDateFormat("HH.mm.ss");
         Date timeobj = new Date();
         jLbl_time.setText(df_time.format(timeobj));
-        
-        datetime= df.format(dateobj)+" "+df_time.format(timeobj);
-        System.out.println("datetime "+datetime);
+
+        datetime = df.format(dateobj) + " " + df_time.format(timeobj);
+        System.out.println("datetime " + datetime);
+        System.out.println("id sub string " + newid.substring(2));
+
     }
 
     private void createTable() {
@@ -113,8 +125,10 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                     for (ItemModel c : arItem) {
                         if (c.getItem_id().equals(txt_item.getText())) {
                             jLbl_unitPriceValue.setText(c.getItem_unit_price());
+                            itemid = c.getItem_id();
                         } else if (c.getItem_name().equals(txt_item.getText())) {
                             jLbl_unitPriceValue.setText(c.getItem_unit_price());
+                            itemid = c.getItem_id();
                         }
                     }
                 } catch (Exception ex) {
@@ -135,14 +149,19 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                 // item selecting combo >> Select Customer // Jdialog with JPanel
                 if (evt.getKeyCode() == KeyEvent.VK_F1) {
                     loadComboCustomerSearch();
-                    cmb_Customer.requestFocus();
+
+                   
+
                     int result = JOptionPane.showConfirmDialog(null,
                             jPanel_Customer, "Please Select Customer",
                             JOptionPane.OK_CANCEL_OPTION);
+
+                    txt_customer.requestFocusInWindow();
                     if (result == JOptionPane.OK_OPTION) {
                         customer_id = jLbl_cusIDValue.getText();
                         txt_Customer.setText(jLbl_cusNameValue.getText());
                         txt_item.requestFocusInWindow();
+                        System.out.println("customer id VKF1" + customer_id);
                     }
                 }
 
@@ -191,6 +210,28 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                     String Qty = txt_QTY.getText() + " x " + jLbl_unitPriceValue.getText();
                     String total = jLbl_totalValue.getText();
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    id = id + 1;
+
+                    NumberFormat nf = NumberFormat.getInstance();
+                    nf.setMinimumIntegerDigits(4);
+                    nf.setGroupingUsed(false);
+                    String nextID = "CI" + nf.format(id);
+
+                    CustomerOrderItemModel orderItem = new CustomerOrderItemModel();
+                    orderItem.setCustomer_order_item_id(nextID);
+                    orderItem.setCustomer_order_item_qty(txt_QTY.getText());
+                    orderItem.setCustomer_order_item_unit_price(jLbl_unitPriceValue.getText());
+                    orderItem.setItem_id(itemid);
+                    orderItem.setCustomer_order_number(jLbl_orderNum.getText());
+
+                    System.out.println("id: " + nextID);
+                    System.out.println("Qty: " + txt_QTY.getText());
+                    System.out.println("unit price: " + jLbl_unitPriceValue.getText());
+                    System.out.println("item id: " + itemid);
+                    System.out.println(" order num: " + jLbl_orderNum.getText());
+
+                    items.add(orderItem);
                     tableModel.insertRow(0, new Object[]{description, Qty, total});
 
                     d_SubTotal = d_SubTotal + d_Total;
@@ -198,6 +239,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                     jLbl_finlTotalValue.setText(d_FinalTotal.toString());
                     jLbl_SubTotalValue.setText(d_SubTotal.toString());
                     cmb_itemSearch.requestFocus();
+
                 }
                 if (evt.getKeyCode() == KeyEvent.VK_END) {
                     save();
@@ -244,7 +286,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
 
                 Double subTotal = Double.parseDouble(jLbl_SubTotalValue.getText());
                 Double discount = Double.parseDouble(txt_Discount.getText());
-                System.out.println(" empty string :"+discount);
+                System.out.println(" empty string :" + discount);
                 Double finalTotal = subTotal - discount;
 
                 if (subTotal != 0) {
@@ -298,7 +340,7 @@ public class AddCustomerOrder extends javax.swing.JFrame {
         if (result == JOptionPane.YES_OPTION) {
             //send to database
             discount = txt_finalDiscount.getText();
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             CustomerOrderModel newOrder = new CustomerOrderModel();
 
             newOrder.setCustomer_order_number(jLbl_orderNum.getText());
@@ -307,12 +349,12 @@ public class AddCustomerOrder extends javax.swing.JFrame {
             newOrder.setCustomer_order_sub_total(jLbl_finalSubTotal.getText());
             newOrder.setCustomer_order_discount(discount);
             newOrder.setCustomer_order_net_total(jLbl_Total.getText());
-            
-            System.out.println("order number: "+jLbl_orderNum.getText());
-            System.out.println("customer id "+customer_id);
-            System.out.println("sub total "+jLbl_finalSubTotal.getText());
-            System.out.println(" discount "+discount);
-            System.out.println("net total "+jLbl_Total.getText());
+
+            System.out.println("order number: " + jLbl_orderNum.getText());
+            System.out.println("customer id " + customer_id);
+            System.out.println("sub total " + jLbl_finalSubTotal.getText());
+            System.out.println(" discount " + discount);
+            System.out.println("net total " + jLbl_Total.getText());
 
             try {
                 CustomerOrderUtilities.addCustomerOrder(newOrder);
@@ -323,28 +365,27 @@ public class AddCustomerOrder extends javax.swing.JFrame {
             } catch (Exception ex) {
                 Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//            CustomerOrderItemModel orderItem = new CustomerOrderItemModel();
 
-            CustomerOrderItemModel orderItem = new CustomerOrderItemModel();
-
-            orderItem.setCustomer_order_item_id(customer_id);
-            orderItem.setCustomer_order_item_qty(customer_id);
-            orderItem.setCustomer_order_item_unit_price(customer_id);
-            orderItem.setItem_id(customer_id);
-            orderItem.setCustomer_order_number(customer_id);
-            
+//            orderItem.setCustomer_order_item_id(customer_id);
+//            orderItem.setCustomer_order_item_qty(customer_id);
+//            orderItem.setCustomer_order_item_unit_price(customer_id);
+//            orderItem.setItem_id(customer_id);
+//            orderItem.setCustomer_order_number(customer_id);
             //create item model array , each time table entry added, 
             //add element to array, then add each item of array to database
-
-            try {
-                CustomerOrderItemUtilities.addCustomerOrderItem(orderItem);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
+            for (CustomerOrderItemModel item : items) {
+                try {
+                    CustomerOrderItemUtilities.addCustomerOrderItem(item);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(AddCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-
         }
         if (result == JOptionPane.NO_OPTION) {
             //send to database
@@ -602,6 +643,11 @@ public class AddCustomerOrder extends javax.swing.JFrame {
 
         cmb_Customer.setEditable(true);
         cmb_Customer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_Customer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_CustomerActionPerformed(evt);
+            }
+        });
 
         jLabel12.setText("SELECT CUSTOMER :");
 
@@ -1130,14 +1176,13 @@ public class AddCustomerOrder extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton4)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addComponent(jButton1))
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addComponent(jLbl_item)
                                 .addGap(18, 18, 18)
-                                .addComponent(cmb_itemSearch, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)))
+                                .addComponent(cmb_itemSearch, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
                         .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                                 .addComponent(jButton5)
@@ -1363,6 +1408,10 @@ public class AddCustomerOrder extends javax.swing.JFrame {
         ShopLogin login = new ShopLogin();
         login.setVisible(true);
     }//GEN-LAST:event_btn_logoutActionPerformed
+
+    private void cmb_CustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_CustomerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_CustomerActionPerformed
 
     /**
      * @param args the command line arguments
