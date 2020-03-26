@@ -28,21 +28,21 @@ public class DeleteCustomerOrder extends javax.swing.JFrame {
 
     public DeleteCustomerOrder(String customer_id) {
         initComponents();
-        jLbl_cusIDValue.setText(customer_id);
-        try {
-            CustomerModel cus = CustomerUtilities.getCustomer(customer_id);
-            jLbl_cusTitleValue.setText(cus.getCustomer_title());
-            jLbl_cusNameValue.setText(cus.getCustomer_name());
-            jLbl_cusNICValue.setText(cus.getCustomer_nic());
-            jLbl_cusContactNumValue.setText(cus.getCustomer_contact());
-            jLbl_cusEmailValue.setText(cus.getCustomer_email());
-            jLbl_cusAddressValue.setText(cus.getCustomer_address());
-            jLbl_cusCityValue.setText(cus.getCustomer_city());
-            jLbl_cusProvinceValue.setText(cus.getCustomer_province());
-            jLbl_cusPostalCodeValue.setText(cus.getCustomer_postalcode());
-        } catch (Exception ex) {
-            Logger.getLogger(DeleteCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        jLbl_cusIDValue.setText(customer_id);
+//        try {
+//            CustomerModel cus = CustomerUtilities.getCustomer(customer_id);
+//            jLbl_cusTitleValue.setText(cus.getCustomer_title());
+//            jLbl_cusNameValue.setText(cus.getCustomer_name());
+//            jLbl_cusNICValue.setText(cus.getCustomer_nic());
+//            jLbl_cusContactNumValue.setText(cus.getCustomer_contact());
+//            jLbl_cusEmailValue.setText(cus.getCustomer_email());
+//            jLbl_cusAddressValue.setText(cus.getCustomer_address());
+//            jLbl_cusCityValue.setText(cus.getCustomer_city());
+//            jLbl_cusProvinceValue.setText(cus.getCustomer_province());
+//            jLbl_cusPostalCodeValue.setText(cus.getCustomer_postalcode());
+//        } catch (Exception ex) {
+//            Logger.getLogger(DeleteCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     /**
@@ -54,192 +54,186 @@ public class DeleteCustomerOrder extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLbl_addNewCus = new javax.swing.JLabel();
-        jLbl_cusID = new javax.swing.JLabel();
-        jLbl_cusName = new javax.swing.JLabel();
-        jLbl_cusNIC = new javax.swing.JLabel();
-        jLbl_cusContactNum = new javax.swing.JLabel();
-        jLbl_cusEmail = new javax.swing.JLabel();
-        jLbl_cusAddress = new javax.swing.JLabel();
-        jLbl_cusCity = new javax.swing.JLabel();
-        jLbl_cusProvince = new javax.swing.JLabel();
-        jLbl_cusPostalCode = new javax.swing.JLabel();
-        btn_deleteCustomer = new javax.swing.JButton();
-        btn_cancle = new javax.swing.JButton();
-        btn_update = new javax.swing.JButton();
-        jLbl_cusTitle = new javax.swing.JLabel();
-        jLbl_cusIDValue = new javax.swing.JLabel();
-        jLbl_cusNameValue = new javax.swing.JLabel();
-        jLbl_cusNICValue = new javax.swing.JLabel();
-        jLbl_cusPostalCodeValue = new javax.swing.JLabel();
-        jLbl_cusEmailValue = new javax.swing.JLabel();
-        jLbl_cusCityValue = new javax.swing.JLabel();
-        jLbl_cusContactNumValue = new javax.swing.JLabel();
-        jLbl_cusAddressValue = new javax.swing.JLabel();
-        jLbl_cusTitleValue = new javax.swing.JLabel();
-        jLbl_cusProvinceValue = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLbl_addNewCus3 = new javax.swing.JLabel();
+        jLbl_cusID3 = new javax.swing.JLabel();
+        jLbl_cusName3 = new javax.swing.JLabel();
+        jLbl_cusNIC3 = new javax.swing.JLabel();
+        jLbl_cusContactNum3 = new javax.swing.JLabel();
+        jLbl_cusEmail3 = new javax.swing.JLabel();
+        jLbl_cusAddress3 = new javax.swing.JLabel();
+        jLbl_cusCity3 = new javax.swing.JLabel();
+        jLbl_cusProvince3 = new javax.swing.JLabel();
+        jLbl_cusPostalCode3 = new javax.swing.JLabel();
+        btn_deleteCustomer3 = new javax.swing.JButton();
+        btn_cancle3 = new javax.swing.JButton();
+        btn_update3 = new javax.swing.JButton();
+        jLbl_cusTitle3 = new javax.swing.JLabel();
+        jLbl_cusIDValue3 = new javax.swing.JLabel();
+        jLbl_cusNameValue3 = new javax.swing.JLabel();
+        jLbl_cusNICValue3 = new javax.swing.JLabel();
+        jLbl_cusPostalCodeValue3 = new javax.swing.JLabel();
+        jLbl_cusEmailValue3 = new javax.swing.JLabel();
+        jLbl_cusCityValue3 = new javax.swing.JLabel();
+        jLbl_cusContactNumValue3 = new javax.swing.JLabel();
+        jLbl_cusAddressValue3 = new javax.swing.JLabel();
+        jLbl_cusTitleValue3 = new javax.swing.JLabel();
+        jLbl_cusProvinceValue3 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(660, 460));
+        jPanel4.setPreferredSize(new java.awt.Dimension(660, 460));
 
-        jLbl_addNewCus.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jLbl_addNewCus.setForeground(new java.awt.Color(51, 102, 255));
-        jLbl_addNewCus.setText("CUSTOMER DETAILS");
+        jLbl_addNewCus3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLbl_addNewCus3.setForeground(new java.awt.Color(51, 102, 255));
+        jLbl_addNewCus3.setText("CUSTOMER DETAILS");
 
-        jLbl_cusID.setText("CUSTOMER ID :");
+        jLbl_cusID3.setText("CUSTOMER ID :");
 
-        jLbl_cusName.setText("NAME :");
+        jLbl_cusName3.setText("NAME :");
 
-        jLbl_cusNIC.setText("NIC :");
+        jLbl_cusNIC3.setText("NIC :");
 
-        jLbl_cusContactNum.setText("CONTACT NUMBER :");
+        jLbl_cusContactNum3.setText("CONTACT NUMBER :");
 
-        jLbl_cusEmail.setText("E- MAIL :");
+        jLbl_cusEmail3.setText("E- MAIL :");
 
-        jLbl_cusAddress.setText("ADDRESS :");
+        jLbl_cusAddress3.setText("ADDRESS :");
 
-        jLbl_cusCity.setText("CITY :");
+        jLbl_cusCity3.setText("CITY :");
 
-        jLbl_cusProvince.setText("PROVINCE :");
+        jLbl_cusProvince3.setText("PROVINCE :");
 
-        jLbl_cusPostalCode.setText("POSTAL CODE :");
+        jLbl_cusPostalCode3.setText("POSTAL CODE :");
 
-        btn_deleteCustomer.setText("DELETE CUSTOMER");
-        btn_deleteCustomer.addActionListener(new java.awt.event.ActionListener() {
+        btn_deleteCustomer3.setText("DELETE CUSTOMER");
+        btn_deleteCustomer3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_deleteCustomerActionPerformed(evt);
+                btn_deleteCustomer3ActionPerformed(evt);
             }
         });
 
-        btn_cancle.setText("CANCEL");
-        btn_cancle.addActionListener(new java.awt.event.ActionListener() {
+        btn_cancle3.setText("CANCEL");
+        btn_cancle3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cancleActionPerformed(evt);
+                btn_cancle3ActionPerformed(evt);
             }
         });
 
-        btn_update.setText("UPDATE CUSTOMER");
-        btn_update.addActionListener(new java.awt.event.ActionListener() {
+        btn_update3.setText("UPDATE CUSTOMER");
+        btn_update3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_updateActionPerformed(evt);
+                btn_update3ActionPerformed(evt);
             }
         });
 
-        jLbl_cusTitle.setText("TITLE :");
+        jLbl_cusTitle3.setText("TITLE :");
 
-        jLbl_cusIDValue.setText("ID");
+        jLbl_cusIDValue3.setText("ID");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jButton4.setText("ADD ORDER");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLbl_addNewCus, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btn_update, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addComponent(btn_deleteCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
-                        .addComponent(btn_cancle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLbl_cusCity, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLbl_cusNIC)
-                            .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLbl_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLbl_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLbl_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_addNewCus3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(btn_update3, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_deleteCustomer3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_cancle3, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLbl_cusCity3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusNIC3)
+                            .addComponent(jLbl_cusEmail3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusName3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusID3, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusAddress3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusPostalCode3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusProvince3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusContactNum3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusTitle3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLbl_cusCityValue, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLbl_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLbl_cusProvinceValue, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(5, 5, 5))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLbl_cusAddressValue, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLbl_cusNICValue, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLbl_cusContactNum, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLbl_cusContactNumValue, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLbl_cusIDValue, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLbl_cusTitleValue, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLbl_cusNameValue, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLbl_cusEmailValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLbl_cusPostalCodeValue, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLbl_cusProvinceValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLbl_cusPostalCodeValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                    .addComponent(jLbl_cusCityValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(5, 5, 5))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLbl_cusAddressValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLbl_cusNICValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLbl_cusIDValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLbl_cusNameValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLbl_cusEmailValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLbl_cusContactNumValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLbl_cusTitleValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jLbl_addNewCus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLbl_addNewCus3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLbl_cusID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLbl_cusTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLbl_cusIDValue, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLbl_cusTitleValue, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLbl_cusName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLbl_cusNameValue, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLbl_cusID3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusIDValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLbl_cusContactNum, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLbl_cusContactNumValue, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLbl_cusNICValue, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLbl_cusNIC)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLbl_cusEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLbl_cusEmailValue, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusTitleValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusTitle3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusNameValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusName3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusNICValue3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusNIC3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusContactNumValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusContactNum3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusEmailValue3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusEmail3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLbl_cusAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLbl_cusAddressValue, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLbl_cusProvinceValue, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLbl_cusProvince, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLbl_cusCity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLbl_cusCityValue, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLbl_cusPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLbl_cusPostalCodeValue, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_deleteCustomer)
-                    .addComponent(btn_cancle)
-                    .addComponent(btn_update))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLbl_cusAddress3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusAddressValue3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLbl_cusCity3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLbl_cusCityValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLbl_cusProvinceValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLbl_cusPostalCodeValue3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLbl_cusProvince3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLbl_cusPostalCode3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_update3)
+                    .addComponent(btn_deleteCustomer3)
+                    .addComponent(btn_cancle3)
+                    .addComponent(jButton4))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,54 +241,47 @@ public class DeleteCustomerOrder extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 558, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_deleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteCustomerActionPerformed
+    private void btn_deleteCustomer3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteCustomer3ActionPerformed
 
         int res = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this customer?", "Confirm", JOptionPane.YES_NO_OPTION);
-        if (res == JOptionPane.YES_OPTION) {
-            String CusID = jLbl_cusIDValue.getText();
-        try {
-            CustomerUtilities.deleteCustomer(CusID);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DeleteCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(DeleteCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(DeleteCustomerOrder.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-        
-        
-        
+//        if (res == JOptionPane.YES_OPTION) {
+//            String CusID = jLbl_cusIDValue.getText();
+//            try {
+//                CustomerUtilities.deleteCustomer(CusID);
+//            } catch (ClassNotFoundException ex) {
+//                Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (IOException ex) {
+//                Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (Exception ex) {
+//                Logger.getLogger(View_or_DeleteCustomer.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+    }//GEN-LAST:event_btn_deleteCustomer3ActionPerformed
 
-
-    }//GEN-LAST:event_btn_deleteCustomerActionPerformed
-
-    private void btn_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_updateActionPerformed
-        // TODO add your handling code here:
-        String cusID = jLbl_cusIDValue.getText();
-        UpdateCustomerOrder update = new UpdateCustomerOrder(cusID);
-        update.setVisible(true);
-        update.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.dispose();
-    }//GEN-LAST:event_btn_updateActionPerformed
-
-    private void btn_cancleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancleActionPerformed
+    private void btn_cancle3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancle3ActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_btn_cancleActionPerformed
+    }//GEN-LAST:event_btn_cancle3ActionPerformed
+
+    private void btn_update3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_update3ActionPerformed
+        // TODO add your handling code here:
+//        String cusID = jLbl_cusIDValue.getText();
+//        UpdateCustomer update = new UpdateCustomer(cusID);
+//        update.setVisible(true);
+//        update.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+//        this.dispose();
+    }//GEN-LAST:event_btn_update3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,30 +322,31 @@ public class DeleteCustomerOrder extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_cancle;
-    private javax.swing.JButton btn_deleteCustomer;
-    private javax.swing.JButton btn_update;
-    private javax.swing.JLabel jLbl_addNewCus;
-    private javax.swing.JLabel jLbl_cusAddress;
-    private javax.swing.JLabel jLbl_cusAddressValue;
-    private javax.swing.JLabel jLbl_cusCity;
-    private javax.swing.JLabel jLbl_cusCityValue;
-    private javax.swing.JLabel jLbl_cusContactNum;
-    private javax.swing.JLabel jLbl_cusContactNumValue;
-    private javax.swing.JLabel jLbl_cusEmail;
-    private javax.swing.JLabel jLbl_cusEmailValue;
-    private javax.swing.JLabel jLbl_cusID;
-    private javax.swing.JLabel jLbl_cusIDValue;
-    private javax.swing.JLabel jLbl_cusNIC;
-    private javax.swing.JLabel jLbl_cusNICValue;
-    private javax.swing.JLabel jLbl_cusName;
-    private javax.swing.JLabel jLbl_cusNameValue;
-    private javax.swing.JLabel jLbl_cusPostalCode;
-    private javax.swing.JLabel jLbl_cusPostalCodeValue;
-    private javax.swing.JLabel jLbl_cusProvince;
-    private javax.swing.JLabel jLbl_cusProvinceValue;
-    private javax.swing.JLabel jLbl_cusTitle;
-    private javax.swing.JLabel jLbl_cusTitleValue;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton btn_cancle3;
+    private javax.swing.JButton btn_deleteCustomer3;
+    private javax.swing.JButton btn_update3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLbl_addNewCus3;
+    private javax.swing.JLabel jLbl_cusAddress3;
+    private javax.swing.JLabel jLbl_cusAddressValue3;
+    private javax.swing.JLabel jLbl_cusCity3;
+    private javax.swing.JLabel jLbl_cusCityValue3;
+    private javax.swing.JLabel jLbl_cusContactNum3;
+    private javax.swing.JLabel jLbl_cusContactNumValue3;
+    private javax.swing.JLabel jLbl_cusEmail3;
+    private javax.swing.JLabel jLbl_cusEmailValue3;
+    private javax.swing.JLabel jLbl_cusID3;
+    private javax.swing.JLabel jLbl_cusIDValue3;
+    private javax.swing.JLabel jLbl_cusNIC3;
+    private javax.swing.JLabel jLbl_cusNICValue3;
+    private javax.swing.JLabel jLbl_cusName3;
+    private javax.swing.JLabel jLbl_cusNameValue3;
+    private javax.swing.JLabel jLbl_cusPostalCode3;
+    private javax.swing.JLabel jLbl_cusPostalCodeValue3;
+    private javax.swing.JLabel jLbl_cusProvince3;
+    private javax.swing.JLabel jLbl_cusProvinceValue3;
+    private javax.swing.JLabel jLbl_cusTitle3;
+    private javax.swing.JLabel jLbl_cusTitleValue3;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }

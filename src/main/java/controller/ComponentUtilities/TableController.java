@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author nadee
  */
 public class TableController {
+
     public static synchronized void addDataToTable(JTable table, String query) {
         try {
             DefaultTableModel dt = (DefaultTableModel) table.getModel();
@@ -43,5 +44,41 @@ public class TableController {
             ex.printStackTrace();
         }
 
+    }
+
+    public static synchronized JTable getTable(JTable itemTable,DefaultTableModel tableModel, String query) {
+//        DefaultTableModel tableModel = new DefaultTableModel();
+//        JTable itemTable = new JTable(tableModel);
+        try {
+//            DefaultTableModel dt = (DefaultTableModel) tableModel.getModel();
+
+//            int rowC = tableModel.getRowCount();
+//            for (int i = 0; i < rowC; i++) {
+//                tableModel.removeRow(0);
+//            }
+            Connection con = new DBCon().getConnection();
+            ResultSet rst = DBHandle.getData(con, query);
+            ResultSetMetaData meta = rst.getMetaData();
+            int col = meta.getColumnCount();
+            for (int i = 0; i < col; i++) {
+                tableModel.addColumn("");
+            }
+
+            while (rst.next()) {
+                Object ob[] = new Object[col];
+                for (int i = 0; i < ob.length; i++) {
+
+                    ob[i] = rst.getString(i + 1);
+                }
+                tableModel.insertRow(0, ob);
+
+//                dt.addRow(ob);
+//                try {      Thread.sleep(100);      } catch (Exception e) {}
+            }
+        } catch (Exception ex) {
+            System.out.println(325346342);
+            ex.printStackTrace();
+        }
+        return itemTable;
     }
 }

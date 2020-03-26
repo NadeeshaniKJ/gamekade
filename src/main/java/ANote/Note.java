@@ -13,9 +13,13 @@ public class Note {
     
     /*
     
-    add customer orde: 
-    check resize and layout issue 
-    comit- add customer order
+    2020-03-05
+    1. close login from after login
+     2.create and set all the views to buttons and starting from login screen and set their functions
+    
+    
+    
+    
     
     1 comiit changes ti git as key combination added
     2 check box for table column selection added
@@ -31,12 +35,22 @@ public class Note {
     11 mulitiple input in JOpotion pane https://stackoverflow.com/questions/6555040/multiple-input-in-joptionpane-showinputdialog/6555051
     
     addCustomerOrder>>>
+    balance does not get calculated on save
+    check resize and layout issue 
+    comit- add customer order
     notes and payment mode does not get saved in data base
+    ISSUE: 
+    add new customer close button press closes everything
+    request focus for cancel button
+    order detail option pane .. request focus between elements, change value of balance when payment is entered
+    clean table and other field to add a new order when one order is completed
+    
     
     
     customer home>>
     show>>> combo boxes to select what columns to display
     order by>> edit order by function for columns with numbers,there is an error in order
+    addorder button >> in custoomer details >> configure
     
     search customer>>>
     allow search from each field

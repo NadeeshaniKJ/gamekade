@@ -8,11 +8,16 @@ package View.Home;
 import View.Customer.AddCustomer;
 import View.Customer.View_or_DeleteCustomer;
 import View.Customer.SearchCustomer;
+import View.CustomerOrder.*;
+import View.Item.DeleteItem;
+import View.Supplier.DeleteSupplier;
 import controller.ComponentUtilities.TableController;
 import controller.dataUtilities.CustomerUtilities;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+import javax.swing.table.DefaultTableModel;
 import model.CustomerModel;
 
 /**
@@ -24,9 +29,12 @@ public class ShopHome extends javax.swing.JFrame {
     /**
      * Creates new form ShopHome
      */
+//        DefaultTableModel tableModel = new DefaultTableModel();
+//        JTable jTbl_AllCustomers2 = new JTable(tableModel);
     public ShopHome() {
         initComponents();
         setExtendedState(ShopHome.MAXIMIZED_BOTH);
+
         new Thread() {
             public void run() {
 
@@ -35,6 +43,8 @@ public class ShopHome extends javax.swing.JFrame {
                     TableController.addDataToTable(jTbl_AllCustomers, "Select * FROM CUSTOMER");
                     TableController.addDataToTable(jTbl_AllIems, "Select * FROM ITEM");
                     TableController.addDataToTable(jTbl_AllSuppliers, "Select * FROM SUPPLIER");
+
+                    addMouseClickListeners();
                 } catch (Exception e) {
                 }
             }
@@ -42,6 +52,96 @@ public class ShopHome extends javax.swing.JFrame {
         jSplitPane1.setRightComponent(jLP_CustomerOrders);
         jTbl_AllSales.setAutoCreateRowSorter(true);
 
+    }
+
+    private void addMouseClickListeners() {
+
+        jTbl_AllSales.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = jTbl_AllSales.rowAtPoint(evt.getPoint());
+                final String valueInCell = (String) jTbl_AllSales.getValueAt(row, 0);
+
+                //for verification
+                try {
+                    System.out.println(valueInCell);
+                    CustomerModel cus = CustomerUtilities.getCustomer(valueInCell);
+                    System.out.println(cus.getCustomer_name() + " " + cus.getCustomer_title());
+                } catch (Exception ex) {
+                    Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // verifiction ends
+
+                ViewCustomerOrder view = new ViewCustomerOrder(valueInCell);
+                view.setVisible(true);
+                view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
+        });
+
+        jTbl_AllCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = jTbl_AllCustomers.rowAtPoint(evt.getPoint());
+                final String valueInCell = (String) jTbl_AllCustomers.getValueAt(row, 0);
+
+                //for verification
+                try {
+                    System.out.println(valueInCell);
+                    CustomerModel cus = CustomerUtilities.getCustomer(valueInCell);
+                    System.out.println(cus.getCustomer_name() + " " + cus.getCustomer_title());
+                } catch (Exception ex) {
+                    Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // verifiction ends
+
+                View_or_DeleteCustomer view = new View_or_DeleteCustomer(valueInCell);
+                view.setVisible(true);
+                view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
+        });
+
+        jTbl_AllIems.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = jTbl_AllIems.rowAtPoint(evt.getPoint());
+                final String valueInCell = (String) jTbl_AllIems.getValueAt(row, 0);
+
+                //for verification
+                try {
+                    System.out.println(valueInCell);
+                    CustomerModel cus = CustomerUtilities.getCustomer(valueInCell);
+                    System.out.println(cus.getCustomer_name() + " " + cus.getCustomer_title());
+                } catch (Exception ex) {
+                    Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // verifiction ends
+
+                DeleteItem view = new DeleteItem(valueInCell);
+                view.setVisible(true);
+                view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
+        });
+        jTbl_AllSuppliers.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int row = jTbl_AllSuppliers.rowAtPoint(evt.getPoint());
+                final String valueInCell = (String) jTbl_AllSuppliers.getValueAt(row, 0);
+
+                //for verification
+                try {
+                    System.out.println(valueInCell);
+                    CustomerModel cus = CustomerUtilities.getCustomer(valueInCell);
+                    System.out.println(cus.getCustomer_name() + " " + cus.getCustomer_title());
+                } catch (Exception ex) {
+                    Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // verifiction ends
+
+                DeleteSupplier view = new DeleteSupplier(valueInCell);
+                view.setVisible(true);
+                view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            }
+        });
     }
 
     /**
@@ -58,9 +158,7 @@ public class ShopHome extends javax.swing.JFrame {
         jTbl_AllSales = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btn_add1 = new javax.swing.JButton();
-        btn_edit1 = new javax.swing.JButton();
         btn_search1 = new javax.swing.JButton();
-        btn_delete1 = new javax.swing.JButton();
         btn_print1 = new javax.swing.JButton();
         btn_settings1 = new javax.swing.JButton();
         jLP_Customers = new javax.swing.JLayeredPane();
@@ -68,9 +166,7 @@ public class ShopHome extends javax.swing.JFrame {
         jTbl_AllCustomers = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btn_add = new javax.swing.JButton();
-        btn_edit = new javax.swing.JButton();
         btn_search = new javax.swing.JButton();
-        btn_delete = new javax.swing.JButton();
         btn_print = new javax.swing.JButton();
         btn_settings = new javax.swing.JButton();
         jLP_Items = new javax.swing.JLayeredPane();
@@ -136,21 +232,12 @@ public class ShopHome extends javax.swing.JFrame {
             }
         });
 
-        btn_edit1.setText("Edit");
-        btn_edit1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_edit1ActionPerformed(evt);
-            }
-        });
-
         btn_search1.setText("Search");
         btn_search1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_search1ActionPerformed(evt);
             }
         });
-
-        btn_delete1.setText("Delete");
 
         btn_print1.setText("Print");
         btn_print1.addActionListener(new java.awt.event.ActionListener() {
@@ -167,25 +254,22 @@ public class ShopHome extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btn_add1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_edit1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_search1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_delete1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_search1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btn_print1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_settings1))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_add1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-            .addComponent(btn_edit1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_search1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_delete1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_print1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_settings1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_print1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btn_search1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_add1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jLP_CustomerOrders.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -231,21 +315,12 @@ public class ShopHome extends javax.swing.JFrame {
             }
         });
 
-        btn_edit.setText("Edit");
-        btn_edit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_editActionPerformed(evt);
-            }
-        });
-
         btn_search.setText("Search");
         btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_searchActionPerformed(evt);
             }
         });
-
-        btn_delete.setText("Delete");
 
         btn_print.setText("Print");
         btn_print.addActionListener(new java.awt.event.ActionListener() {
@@ -262,25 +337,19 @@ public class ShopHome extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btn_add)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_edit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_search)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_delete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_print)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btn_print, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_settings))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btn_add, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-            .addComponent(btn_edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btn_print, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btn_settings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_print, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btn_search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLP_Customers.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -291,7 +360,7 @@ public class ShopHome extends javax.swing.JFrame {
         jLP_CustomersLayout.setHorizontalGroup(
             jLP_CustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 813, Short.MAX_VALUE)
         );
         jLP_CustomersLayout.setVerticalGroup(
             jLP_CustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -669,36 +738,6 @@ public class ShopHome extends javax.swing.JFrame {
         jTbl_AllSuppliers.setAutoCreateRowSorter(true);
     }//GEN-LAST:event_btn_SuppliersActionPerformed
 
-    private void btn_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editActionPerformed
-        try {
-
-            jTbl_AllCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    int row = jTbl_AllCustomers.rowAtPoint(evt.getPoint());
-                    int col = jTbl_AllCustomers.columnAtPoint(evt.getPoint());
-                    final String valueInCell = (String) jTbl_AllCustomers.getValueAt(row, col);
-
-                    //for verification
-                    try {
-                        System.out.println(valueInCell);
-                        CustomerModel cus = CustomerUtilities.getCustomer(valueInCell);
-                        System.out.println(cus.getCustomer_name() + " " + cus.getCustomer_title());
-                    } catch (Exception ex) {
-                        Logger.getLogger(SearchCustomer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    // verifiction ends
-
-                    View_or_DeleteCustomer Delete = new View_or_DeleteCustomer(valueInCell);
-                    Delete.setVisible(true);
-                    Delete.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-
-                }
-            });
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_btn_editActionPerformed
-
     private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
 
         SearchCustomer search = new SearchCustomer();
@@ -711,15 +750,15 @@ public class ShopHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_printActionPerformed
 
     private void btn_add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add1ActionPerformed
-        // TODO add your handling code here:
+        AddCustomerOrder newOrder = new AddCustomerOrder();
+        newOrder.setVisible(true);
+        newOrder.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btn_add1ActionPerformed
 
-    private void btn_edit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_edit1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_edit1ActionPerformed
-
     private void btn_search1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_search1ActionPerformed
-        // TODO add your handling code here:
+        SearchCustomerOrder searchOrder = new SearchCustomerOrder();
+        searchOrder.setVisible(true);
+        searchOrder.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btn_search1ActionPerformed
 
     private void btn_print1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_print1ActionPerformed
@@ -808,12 +847,8 @@ public class ShopHome extends javax.swing.JFrame {
     private javax.swing.JButton btn_add1;
     private javax.swing.JButton btn_add2;
     private javax.swing.JButton btn_add3;
-    private javax.swing.JButton btn_delete;
-    private javax.swing.JButton btn_delete1;
     private javax.swing.JButton btn_delete2;
     private javax.swing.JButton btn_delete3;
-    private javax.swing.JButton btn_edit;
-    private javax.swing.JButton btn_edit1;
     private javax.swing.JButton btn_edit2;
     private javax.swing.JButton btn_edit3;
     private javax.swing.JButton btn_print;

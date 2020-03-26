@@ -91,12 +91,12 @@ public class CustomerOrderUtilities {
 
         ResultSet result = DBHandle.getData(con, query);
         while (result.next()) {
-            customerOrder.setCustomer_order_number(result.getString("Customer_id"));
-            customerOrder.setCustomer_id(result.getString("Customer_name"));
-            customerOrder.setCustomer_order_datetime(result.getString("Customer_nic"));
-            customerOrder.setCustomer_order_sub_total(result.getString("Customer_address"));
-            customerOrder.setCustomer_order_discount(result.getString("Customer_bday"));
-            customerOrder.setCustomer_order_net_total(result.getString("Customer_contact"));
+            customerOrder.setCustomer_order_number(result.getString("customer_order_number"));
+            customerOrder.setCustomer_id(result.getString("customer_id"));
+            customerOrder.setCustomer_order_datetime(result.getString("customer_order_datetime"));
+            customerOrder.setCustomer_order_sub_total(result.getString("customer_order_sub_total"));
+            customerOrder.setCustomer_order_discount(result.getString("customer_order_discount"));
+            customerOrder.setCustomer_order_net_total(result.getString("customer_order_net_total"));
         }
 
         return customerOrder;
